@@ -1,0 +1,80 @@
+body{
+    width: 1000px;
+    margin: 0 auto;
+    background-color: darkslategrey;
+    display: flex;
+    justify-content: center;
+    height: 700px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    cursor: pointer;
+}
+
+.App{
+    width: 500px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+}
+.App{
+    height: 500px;
+    justify-content: center;
+}
+.App .container{
+    display: flex;
+    flex-direction: column;
+    border: 5px solid white;
+    border-radius: 10px;
+    height: 500px;
+    width: 500px;
+    margin: 0 auto;
+    justify-content: flex-start;
+    align-items: center;
+}
+.App .container input{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    height: 30px;
+    width: 200px;
+    border-radius: 10px;
+    margin: 10px 10px 10px 10px;
+}
+.App .container button{
+    width: 200px;
+    border-radius: 10px;
+    height: 30px;
+    background-color: rgb(140, 223, 31);
+}
+.App .container .card {
+    width: 200px;
+    height: 50px;
+    background-color: aqua;
+    border: 2px solid rebeccapurple;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    margin: 5px 5px 5px 5px;
+    justify-content: space-around;
+
+}
+.cardoverturned {
+    width: 200px;
+    height: 50px;
+    background-color: rgb(233, 166, 213);
+    border: 2px solid rebeccapurple;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    margin: 5px 5px 5px 5px;
+    color: rgb(240, 236, 230);
+    justify-content: space-around;
+}
+.App .container span{
+    border: 2px solid wheat;
+    border-radius: 2px;
+
+}
