@@ -1,0 +1,26 @@
+
+.main_div{
+    display: flex;    
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.first_div{
+    border-radius: 20px;
+    width: 15px;
+    display: flex;
+    align-items: flex-end;
+    background-color: rgb(236, 226, 226);
+    height: 120px;
+    border: 1px solid slateblue;
+    justify-content: center;
+}
+.old_div{
+    border-radius: inherit;
+    background: #b92626;
+    transition: all 0.3s ease-out;
+    width: 14px;
+}
