@@ -1,0 +1,17 @@
+button{
+    margin-top: 20px;
+    height: 40px;
+    width: 100px;
+    border-radius: 10px;
+    color: #f7f1f5;
+    background-color: #8b005d;
+    font-weight: bolder;
+    text-shadow: 10px 2px 12px rebeccapurple;
+    cursor: pointer;
+}
+button:hover,
+button:active {
+  background: #ac0e77;
+  border-color: #ac0e77;
+  box-shadow: 0 0 18px rgba(0, 0, 0, 0.26);
+}
