@@ -1,13 +1,10 @@
-
-
+import React from "react"
+import './App.css'
+import BlogComponent from "./Component/BlogComponent/BlogComponent"
 function App() {
 
 	
-	return (
-		<div className='main-wrapper'>
-
-		</div>
-	)
+	return <BlogComponent/>
 }
 
 export default App

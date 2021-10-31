@@ -1,0 +1,23 @@
+button{
+    background-color: rebeccapurple;
+    width: 200px;
+    height: 40px;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    outline: 2px solid rgba(205, 97, 219, 0.815);
+    box-shadow: 5px 5px 5px 5px rgb(247, 241, 246);
+}
+button{
+    position: relative;
+    top: 35px;
+    left: 55px;
+}
+button:focus{
+    outline: none;
+}
+button:hover,
+button:active{
+    background-color: rgb(192, 44, 221);
+    border-color: rgb(4, 228, 228);
+}
