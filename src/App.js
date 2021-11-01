@@ -1,11 +1,12 @@
-
+import AddUser from "./Component/Users/AddUser"
+import './App.css'
 
 function App() {
 
 	
 	return (
-		<div className='main-wrapper'>
-
+		<div>
+			<AddUser/>
 		</div>
 	)
 }
