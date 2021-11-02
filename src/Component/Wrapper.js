@@ -15,9 +15,11 @@ function Wrapper() {
 				<button onClick={()=> setText(true)}> Открыть следующее окно</button>
 			</Module>
 			<Module value={text} setValue={setText}>
+				<div >
 				<h1>Hi</h1>
-				<button onClick={() => setValue(true)}> Закрыть</button>
 				<button onClick={() => setText(false)}> Окно Hi</button>
+				<button onClick={() => setValue(true)}>Обратно</button>
+				</div>
 			</Module>
 			<div>
 				<h1>Lorem-Impsum</h1>
