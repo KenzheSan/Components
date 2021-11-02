@@ -10,15 +10,16 @@ function Wrapper() {
 	return (
 		<div className='main-wrapper'>
 			<Module value={value} setValue={setValue} >
-				<h1>Hello</h1>
-				<button onClick={() => setValue(false)}> Закрыть</button>
-				<button onClick={()=> setText(true)}> Открыть следующее окно</button>
+			<div>
+					<h1>Закрыть Окно</h1>
+					<button onClick={() => setText(true)}>Нет</button>
+					<button onClick={() => setValue(false)}>Конечно</button>
+				</div>
 			</Module>
 			<Module value={text} setValue={setText}>
 				<div >
 				<h1>Hi</h1>
-				<button onClick={() => setText(false)}> Окно Hi</button>
-				<button onClick={() => setValue(true)}>Обратно</button>
+				<button onClick={() => setValue(true)}> Окно Hi</button>
 				</div>
 			</Module>
 			<div>
