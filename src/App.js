@@ -1,3 +1,5 @@
+import Wrapper from "./Component/Wrapper"
+import './App.css'
 
 
 function App() {
@@ -5,7 +7,7 @@ function App() {
 	
 	return (
 		<div className='main-wrapper'>
-
+			<Wrapper/>
 		</div>
 	)
 }

@@ -1,0 +1,37 @@
+.blog{
+    background-color: rgb(0, 0, 0,0.9);
+    width: 1600px;
+    height: 750px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0px;
+    left: 0;
+    pointer-events: none;
+    opacity: 0;
+    
+    
+}
+.blog_content{
+    padding: 20px;
+    border-radius: 12px;
+    background-color: wheat;
+    height: 200px;
+    width: 200px;
+    transition: 0.5s all;
+    transform: scale(0.5);
+    pointer-events: none;
+}
+.blog.active{
+    transition: 2s all;
+    opacity: 1;
+    pointer-events:  all;
+    
+}
+.blog_content.active{
+    transition: 1s all;
+    opacity: 1;
+    pointer-events: all;
+    transform: scale(1);
+}
