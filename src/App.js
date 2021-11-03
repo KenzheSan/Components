@@ -1,12 +1,12 @@
-import AddUser from "./Component/Users/AddUser"
 import './App.css'
+import MainWrapper from "./Component/MainWrapper/MainWrapper"
 
 function App() {
 
 	
 	return (
 		<div>
-			<AddUser/>
+			<MainWrapper/>
 		</div>
 	)
 }
