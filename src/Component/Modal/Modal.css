@@ -65,6 +65,13 @@
     margin: 5px 5px 5px 5px;
     color: white;
 }
+.create:hover,
+.create:active{
+    color:white;
+    font-weight: bold;
+    background-color: rgb(27, 27, 25);
+    background: rgb(19, 18, 18);
+}
 .fixed{
     position: fixed;
     bottom: 0.5vw;
@@ -80,4 +87,6 @@
 .fixed:hover,
 .fixed:active{
     background: red;
+    color: black;
+    font-weight: bolder;
 }
