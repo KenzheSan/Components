@@ -1,0 +1,51 @@
+.modalBlog {
+    background-color: rgba(0, 0, 0, 0.4);
+    width: 1600px;
+    height: 750px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    transition: 0.5s ;
+    opacity: 0;
+}
+.contentBlog{
+    background-color: white;
+    width: 300px;
+    height: 300px;
+    border-radius: 10px;
+    transform: scale(0.5);
+    transition: 0.5s all;
+}
+.contentBlog.active{
+    opacity: 1;
+    transition: 0.5s all;
+    pointer-events: all;
+    transform: scale(1);
+}
+
+.modalBlog.active {
+    opacity: 1;
+    pointer-events: all;
+}
+.modal-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 300px;
+    width: 300px;
+}
+.modal-wrapper button{
+    margin-bottom: 10px;
+    width: 70px;
+    
+}
+
+.modal-wrapper h1{
+    color: rgb(129, 49, 49);
+    text-align: center;
+}

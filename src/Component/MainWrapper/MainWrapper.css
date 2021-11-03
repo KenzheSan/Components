@@ -1,3 +1,22 @@
 .mainWrapper{
     background:none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 670px;
+    width: 1200px;
+    margin: 0 auto;
+    
+}
+    
+.first-list{
+    width: 600px;
+    margin: 10px auto;
+}
+.main-list{
+    width: 1400px;
+    display: flex;
+    justify-content: center;
+    height: 400px;
 }

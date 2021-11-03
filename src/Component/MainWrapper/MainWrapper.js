@@ -2,24 +2,14 @@ import { useState } from 'react'
 import Card from '../Ui/Card'
 import AddUser from '../Users/AddUser'
 import './MainWrapper.css'
+import CourseGoals from '../CourseGoals/CourseGoals'
 
 const MainWrapper = () => {
 	const [allData, setAllData] = useState([
-		{ name: 'UserOne', age: '23' },
-		{ name: 'UserTwo', age: '55' },
+		{ name: 'Adilet', age: '23'  ,id: 'h1'},
+		{ name: 'Sakydin', age: '55', id: 'h2' },
 	])
-	// const changeUserInfo = (userName, userAge) => {
-	// 	setAllData((prevInfo) => {
-	// 		const returnInfo = [...prevInfo]
-	// 		returnInfo.unshift({
-	// 				name: userName,
-	// 				age: userAge,
-	// 				id: Math.random().toString()
-	// 		})
 
-	//         return returnInfo
-	// 	})
-	// }
 	const changeUserInfo = (data) => {
 		setAllData((prevInfo) => {
 			const returnInfo = [...prevInfo]
@@ -27,14 +17,26 @@ const MainWrapper = () => {
 			return returnInfo
 		})
 	}
-    
+
+    const filterInfo = (selectedId) =>{
+        setAllData((prevInfo)=>{
+            const returnInfo = prevInfo.filter(item => item.id !== selectedId)
+            return returnInfo
+        })
+    }
+    let content = (<p style={{textAlign:'center'}}>Все данные удалены!</p>)
+    if(allData.length > 0){
+        content = (
+            <CourseGoals elemet={allData} filterInfo = {filterInfo}/>
+        )
+    }
 	return (
 		<Card className='mainWrapper'>
-			<section>
+			<section className='first-list'>
 				<AddUser onSetData={changeUserInfo} />
 			</section>
-			<section>
-                
+			<section className='main-list'>
+                {content}
             </section>
 		</Card>
 	)

@@ -4,11 +4,9 @@ import MainWrapper from "./Component/MainWrapper/MainWrapper"
 function App() {
 
 	
-	return (
-		<div>
-			<MainWrapper/>
-		</div>
-	)
+	return <MainWrapper/>
+	
+	
 }
 
 export default App
