@@ -1,0 +1,20 @@
+.wrapper {
+    width: 100vw;
+    margin: 0 auto;
+    height: 100vh;
+    background: rgb(209, 190, 228);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn {
+    width: 20vw;
+    height: 32vh;
+    border-radius: 30px;
+    background: none;
+}
+.logo{
+    width: 15vw;
+    height: 25vh;
+    background: none;
+}
