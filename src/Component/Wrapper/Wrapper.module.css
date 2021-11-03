@@ -2,7 +2,7 @@
     width: 100vw;
     margin: 0 auto;
     height: 100vh;
-    background: rgb(209, 190, 228);
+    background: rgb(245, 243, 247);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,4 +17,5 @@
     width: 15vw;
     height: 25vh;
     background: none;
+    
 }

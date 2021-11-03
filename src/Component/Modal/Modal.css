@@ -1,0 +1,83 @@
+.module{
+    height: 47vw;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.5s;
+}
+.module_content{
+    padding: 20px;
+    border-radius: 12px;
+    background-color: rgb(0,0,0,0.3);
+    width: 30vw;
+    height: 40vh;
+    transform: scale(0.5);
+    transition: 0.5s all;
+}
+.module_content.active{
+    transform: scale(1);
+    opacity: 1;
+}
+.module.active {
+    opacity: 1;
+    pointer-events: all;
+    transition: 1s all;
+}
+.mainblog{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: rgb(250, 248, 244);
+    text-align: center;
+    height: 15vw;
+}
+.userblog input{
+    display: block;
+    border: none;
+    border-bottom: 3px solid white;
+    background-color: transparent;
+    color: white;
+    outline: none;
+    text-align: center;
+    font-size: 25px;
+}
+.userblog input::placeholder {
+    color: rgb(239, 239, 243);
+    font-size: 15px;
+    text-align: center;
+}
+
+.create{
+    width: 20vh;
+    height: 2vw;
+    background: none;
+    border-color: chartreuse;
+    border-radius: 10px;
+    padding: 5px 5px 5px 5px;
+    margin: 5px 5px 5px 5px;
+    color: white;
+}
+.fixed{
+    position: fixed;
+    bottom: 0.5vw;
+    right:  1vw;
+    border-radius: 10px;
+    height: 5vh;
+    width: 12vh;
+    display: block;    
+    color: beige;
+    font-weight: bold;
+
+}
+.fixed:hover,
+.fixed:active{
+    background: red;
+}
