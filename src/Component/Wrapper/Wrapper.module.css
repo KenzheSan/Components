@@ -6,6 +6,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 .btn {
     width: 20vw;
@@ -19,3 +20,6 @@
     background: none;
     
 }
+
+
+

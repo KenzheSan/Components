@@ -3,7 +3,10 @@ import logo from '../../Component/Ui/enter.png'
 import Button from '../Ui/Button'
 import Modal from '../Modal/Modal'
 import React, { useState } from 'react'
+
+
 const Wrapper = () => {
+
 	const [modal, setModal] = useState(false)
 	const [signUp, setSignUp] = useState(false)
 	return (
@@ -80,6 +83,8 @@ const Wrapper = () => {
 					<Button className='create' onClick={() => setModal(false)}>
 						Login
 					</Button>
+
+
 					<header className='headerblog'>
 						<Button
 							className='create'
@@ -91,6 +96,7 @@ const Wrapper = () => {
 						>
 							Sign Up
 						</Button>
+						
 					</header>
 					<Button
 						className='fixed'
