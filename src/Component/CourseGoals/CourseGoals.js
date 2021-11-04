@@ -3,16 +3,16 @@ import React, { useState } from 'react'
 import './CourseGoals.css'
 import Modal from '../Ui/Modal/Modal'
 import Button from '../Ui/Button/Button'
+// import Rename from '../Ui/ReName/Rename'
 
 const CourseGoals = (props) => {
 	const [modal, setModal] = useState(false)
-
 	return (
 		<div className='wrapper-goal'>
 			<ul className='goal-list'>
 				{props.elemet.map((item) => {
 					return (
-						<CourseItem key={item.id} id={item.id}>
+						<CourseItem key={item.id} id={item.id} name={item.name} age={item.age} onChangeInfo={props.onChangeInfo}>
 							{item.name} ({item.age} years old)
 							<Button
 								className='btn'
@@ -22,6 +22,7 @@ const CourseGoals = (props) => {
 							>
 								Delete
 							</Button>
+
 							<Modal modal={modal} setModal={setModal}>
 								<div className='main-modal'>
 									<div className='modal-wrapper'>
@@ -40,6 +41,7 @@ const CourseGoals = (props) => {
 									</div>
 								</div>
 							</Modal>
+
 						</CourseItem>
 					)
 				})}

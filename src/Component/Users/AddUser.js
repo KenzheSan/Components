@@ -3,6 +3,7 @@ import Card from '../Ui/Card'
 import classes from './AddUser.module.css'
 import Button from '../Ui/Button/Button'
 import ErrorModal from '../Ui/ErrorModal/ErrorModal'
+
 const AddUser = (props) => {
 	const [userName, setUserName] = useState('')
 	const [userAge, setUserAge] = useState('')
@@ -48,6 +49,7 @@ const AddUser = (props) => {
 			{error && (
 				<ErrorModal title={error.title} message={error.message} onConfirm={errorHandler}/>
 			)}
+
 			<Card className={classes.input}>
 				<form onSubmit={addUserHundler}>
 					<label htmlFor='username'>User-Name</label>
