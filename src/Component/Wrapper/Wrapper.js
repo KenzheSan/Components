@@ -5,7 +5,7 @@ import Modal from '../Modal/Modal'
 import React, { useState } from 'react'
 const Wrapper = () => {
 	const [modal, setModal] = useState(false)
-	const [signUp, setSignUp] = useState(true)
+	const [signUp, setSignUp] = useState(false)
 	return (
 		<main className={classes.wrapper}>
 			<div>
@@ -92,12 +92,15 @@ const Wrapper = () => {
 							Sign Up
 						</Button>
 					</header>
-                    <Button className='fixed' onClick={(e)=>{
-                    
-                    setModal(false)
-                    setSignUp(false)
-                    
-                }}>Close All</Button>
+					<Button
+						className='fixed'
+						onClick={(e) => {
+							setModal(false)
+							setSignUp(false)
+						}}
+					>
+						Close All
+					</Button>
 				</div>
 			</Modal>
 		</main>
