@@ -4,20 +4,17 @@
 }
 
 .marquee-blog {
-	position: absolute;
+	position: fixed;
 	width: 100vw;
-    height: 50vh;
+    height: 100vh;
+	font-size: 120px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
     text-align: center;
     font-family: cursive;
-    color: rgb(172, 188, 189);
+    color: rgb(76, 69, 78);
+	z-index: 1;
 }
 
-.wrapper-blog {
-	position: relative;
-	bottom: 0;
-	left: 0;
-	width: 100vh;
-}
+

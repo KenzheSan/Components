@@ -1,7 +1,7 @@
 .module{
     height: 47vw;
     width: 100vw;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(29, 23, 23, 0.4);
     position: fixed;
     left: 0;
     top: 0;
@@ -16,7 +16,7 @@
 .module_content{
     padding: 20px;
     border-radius: 12px;
-    background-color: rgb(0,0,0,0.3);
+    background-color: rgba(0, 0, 0, 0.50);
     width: 30vw;
     height: 40vh;
     transform: scale(0.5);
@@ -24,12 +24,17 @@
 }
 .module_content.active{
     transform: scale(1);
+    transition: 1s all;
     opacity: 1;
+    background-color: rgba(0, 0, 0, 0.80);
 }
 .module.active {
     opacity: 1;
     pointer-events: all;
-    transition: 1s all;
+    transition: 1s ease-in-out;
+    z-index: 5;
+
+
 }
 .mainblog{
     display: flex;
@@ -39,6 +44,9 @@
     color: rgb(250, 248, 244);
     text-align: center;
     height: 15vw;
+    transition: 1s all;
+
+
 }
 .userblog input{
     display: block;
@@ -49,9 +57,10 @@
     outline: none;
     text-align: center;
     font-size: 25px;
+    width: 12vw;
 }
 .userblog input::placeholder {
-    color: rgb(106, 223, 52);
+    color: #eaeeea;
     font-size: 15px;
     text-align: center;
 }

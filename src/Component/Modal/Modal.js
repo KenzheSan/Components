@@ -23,17 +23,25 @@ const Modal = (props) => {
 						<br />
 						<input
 							id='password'
-							placeholder='password'
+							placeholder='Password'
 							type='password'
 						/>
 					</div>
 					<br />
-					<Button>Login</Button>
+					<Button className='create' onClick={()=> {
+						props.setModal(false)
+					}}>Login</Button>
 
 					<header className='headerblog'>
-						<Button className='create'>Sign Up</Button>
+						<Button className='create' onClick={()=>{
+							props.setActive(true)
+							props.setModal(false)
+						}}>Sign Up</Button>
 					</header>
-					<Button className='fixed'>Close All</Button>
+					<Button className='fixed' onClick={()=>{
+						props.setActive(false)
+						props.setModal(false)
+					}}>Close All</Button>
 				</div>
 			
 			</div>

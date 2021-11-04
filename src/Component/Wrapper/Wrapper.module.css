@@ -1,25 +1,27 @@
 .wrapper {
-    width: 100vw;
-    margin: 0 auto;
-    height: 100vh;
-    background: rgb(245, 243, 247);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
+	width: 100vw;
+	margin: 0 auto;
+	height: 100vh;
+	background: rgb(245, 243, 247);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+
 }
 .btn {
-    width: 20vw;
-    height: 32vh;
-    border-radius: 30px;
-    background: none;
+	width: 20vw;
+	height: 32vh;
+	border-radius: 30px;
+	background: none;
+
 }
-.logo{
-    width: 15vw;
-    height: 25vh;
-    background: none;
-    
+.logo {
+	width: 15vw;
+	height: 25vh;
+	background: none;
 }
-
-
-
+.z_wrapper {
+	position: fixed;
+	z-index: 3;
+}
