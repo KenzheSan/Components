@@ -56,6 +56,8 @@
     text-align: center;
 }
 .userblog input:focus::placeholder{
+    transition: 1s all;
+    transform: scale(0.5);
     opacity: 0;
 }
 
