@@ -28,7 +28,8 @@ const MainWrapper = () => {
 	const onChangeInfo = (data) => {
 		setAllData((prevInfo) => {
 			const returnInfo = [...prevInfo]
-			returnInfo.forEach(item=>{
+			returnInfo.forEach
+			(item=>{
 				if(item.id === data.id){
 					item.name = data.name
 					item.age = data.age
