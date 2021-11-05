@@ -1,13 +1,11 @@
+import React from "react"
+import Test from "./Component/Test/Test"
 
 
 function App() {
 
 	
-	return (
-		<div className='main-wrapper'>
-
-		</div>
-	)
+	return <Test/>
 }
 
 export default App

@@ -1,0 +1,36 @@
+body{
+    width: 100vw;
+    height: 100vh;
+}
+.mainBLog{
+    font-family: cursive;
+    background: rgb(34, 193, 195);
+    background-repeat: no-repeat;
+    background: linear-gradient(
+        0deg,
+        rgba(34, 193, 195, 1) 0%,
+        rgba(171, 114, 190, 1) 0%,
+        rgba(141, 190, 122, 1) 56%,
+        rgba(253, 187, 45, 1) 100%
+    );
+    width: 100vw;
+    height: 100vh;
+    background: rgb(34, 193, 195);
+}
+
+.container{
+    width: 70vw;
+    height: 100vh;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.userList{
+    width: 30vw;
+    height: 50vh;
+}
+
+
+
