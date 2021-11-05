@@ -4,7 +4,7 @@ const Todo = (props) => {
 	// let today = new Date()
 	// let hours = today.toLocaleTimeString()
 	const [title, setTitle] = useState('')
-	const [hourse, setHourse] = useState('')
+	const [hourse, setHourse] = useState('2021')
 	const changeTitleHadnler = (e) => {
 		setTitle(e.target.value)
 	}
@@ -15,8 +15,9 @@ const Todo = (props) => {
 		e.preventDefault()
 		const data = {
 			name: title,
-			date: new Date().toString().split(' ').splice(1, 3).join(' '),
+			date:hourse,
 			id: Math.random().toString(),
+			completed: false,
 		}
 		props.formInfo(data)
         setTitle('')
@@ -25,7 +26,7 @@ const Todo = (props) => {
 	return (
 		<form onSubmit={formHandler} classes={classes.blogTodo}>
 			<h1 className={classes.h1}>App To-Do-List</h1>
-			<div>
+			<div className={classes.div}>
 				<label>Title</label>
 				<input
 					type='text'

@@ -14,10 +14,10 @@ const Test = () => {
 			return memory
 		})
 	}
-    let content = (<p style={{textAlign:'center'}}>Все данные удалены!</p>)
-    if(localStorage.length > 0){
-        content =  <UserList localInfo={local} />
-    }
+	let content = <p style={{ textAlign: 'center' }}>Все данные удалены!</p>
+	if (localStorage.length > 0) {
+		content = <UserList localInfo={local} />
+	}
 
 	return (
 		<div className={classes.mainBLog}>
@@ -26,7 +26,7 @@ const Test = () => {
 				<div>
 					<div className={classes.userList}>
 						{/* <UserList localInfo={local} /> */}
-                        {content}
+						{content}
 					</div>
 				</div>
 			</div>
