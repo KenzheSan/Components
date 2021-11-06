@@ -36,7 +36,7 @@ const Todo = (props) => {
 			name: title,
 			date:hourse,
 			id: Math.random().toString(),
-			completed: false,
+			completed: true,
 		}
 		props.formInfo(data)
         setTitle('')

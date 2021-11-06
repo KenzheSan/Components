@@ -14,12 +14,12 @@ const AllList = (props) =>{
         }
       };
       
-    
+    console.log(props);
 
     
     return (
-        <li className='user-list' onClick={onDone}>
-            <input type="checkbox" checked= {props.completed} />
+        <li className='user-list' >
+            <input type="checkbox"  onClick={onDone}/>
             {props.children}
             <CorrectDate date={props.date}/>
         </li>
