@@ -2,6 +2,7 @@ import classes from './Test.module.css'
 import Todo from '../Todo/Todo'
 import React, { useState } from 'react'
 import UserList from '../UserList/UserList'
+import Card from '../Card/Card'
 const Test = () => {
 	const [local, setLocal] = useState([])
 
@@ -20,7 +21,7 @@ const Test = () => {
 	}
 
 	return (
-		<div className={classes.mainBLog}>
+		<Card className={classes.mainBLog}>
 			<div className={classes.container}>
 				<Todo formInfo={formInfo} />
 				<div>
@@ -30,7 +31,7 @@ const Test = () => {
 					</div>
 				</div>
 			</div>
-		</div>
+		</Card>
 	)
 }
 export default Test

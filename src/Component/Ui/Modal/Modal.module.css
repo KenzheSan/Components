@@ -1,0 +1,30 @@
+.blog {
+	background: rgba(0, 0, 0, 0.5);
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: flex;
+	justify-content: center;
+}
+
+
+.modalCard {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	top: 100px;
+	width: 30vw;
+	height: 30vh;
+	background-color: rgba(0, 0, 0, 0.7);
+	border-radius: 10px;
+	transition: 1s all;
+    box-shadow: 1px 5px 12px white;
+    transition: width 2s;
+}
+
+
+
+

@@ -1,5 +1,7 @@
 .done {
 	background: rgba(0, 0, 0, 0.75);
+    transition: 1s linear;
+    transform: scale(1);
 }
 .user-list {
     display: flex;

@@ -1,5 +1,6 @@
 import React from 'react'
 import './CorrectDate.css'
+import Card from '../Card/Card'
 
 const CorrectDate = (props) => {
     let correct = new Date(props.date)
@@ -7,11 +8,11 @@ const CorrectDate = (props) => {
 	let day = correct.toLocaleString('en-US', { day: '2-digit' })
 	let year = correct.getFullYear()
 	return (
-		<div className='date-blog'>
+		<Card className='date-blog'>
 			<span>{month}/</span>
 			<span>{day}/</span> 
 			<span>{year}</span>
-		</div>
+		</Card>
 	)
 }
 export default CorrectDate

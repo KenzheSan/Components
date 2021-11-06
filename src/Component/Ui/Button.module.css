@@ -1,0 +1,17 @@
+.btn{
+    background: none;
+    border-color: cornflowerblue;
+    width: 100px;
+    height: 30px;
+    margin: 3px 3px 3px 3px;
+    color: white;
+}
+.btn:hover,
+.btn:active{
+    background: rgb(167, 146, 146);
+    color: white;
+    outline: 1px solid rgb(233, 69, 69);
+    box-shadow: 1px 1px 10px rgb(233, 69, 69); 
+
+
+}
