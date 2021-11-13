@@ -1,14 +1,30 @@
 import classes from './Login.module.css'
 import React from 'react'
 
+
+
+
 const Login = (props) => {
+
+
 	return (
 		<form action='' className={classes.form}>
 			<h1 className={classes.form__title}>Sign Up</h1>
 			<p className={classes.form__description}>
 				Login here using your username(email) and password
 			</p>
-
+			<div className={classes.form__group}>
+				<input
+					type='text'
+					id='name'
+					className={classes.form__input}
+					placeholder=' '
+					autocomplete='off'
+				/>
+				<label htmlFor='name' className={classes.form__label}>
+					Username
+				</label>
+			</div>
 			<div className={classes.form__group}>
 				<input
 					type='text'
@@ -17,11 +33,10 @@ const Login = (props) => {
 					placeholder=' '
 					autocomplete='off'
 				/>
-				<label for='email' className={classes.form__label}>
-					Email
+				<label htmlFor='email' className={classes.form__label}>
+					Email Adress
 				</label>
 			</div>
-
 			<div className={classes.form__group}>
 				<input
 					type='password'
@@ -29,12 +44,16 @@ const Login = (props) => {
 					className={classes.form__input}
 					placeholder=' '
 				/>
-				<label for='password' className={classes.form__label}>
+				<label htmlFor='password' className={classes.form__label}>
 					Password
 				</label>
 			</div>
-
-			<button className={classes.form__button}>Log In</button>
+			<button
+				type='submit'
+				className={classes.form__button}
+			>
+				Log In
+			</button>
 		</form>
 	)
 }
