@@ -1,0 +1,27 @@
+.card{
+    border: 1px solid black;
+    height: 30vh;
+    width: 30vw;
+    border-radius: 10px;
+    border-color: rgb(77, 78, 75);
+    margin: 5px 5px 5px 5px;
+    box-shadow: 1px 12px 15px black;
+    padding: 5px 5px 5px 5px;
+}
+.title{
+    cursor: pointer;
+}
+.title p{
+    font-weight: bolder;
+    font-size: 24px;
+}
+.card:hover{
+    background: rgb(0,0,0,0.75);
+    color: white;
+}
+.url{
+    border-radius: 10px;
+    border: 1px solid yellowgreen;
+    height: 10vh;
+    text-align: center;
+}
