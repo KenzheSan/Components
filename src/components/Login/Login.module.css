@@ -86,4 +86,6 @@ body {
   font-size: 0.8rem;
 
 }
-
+.form__input__red{
+  border-color: red;
+}

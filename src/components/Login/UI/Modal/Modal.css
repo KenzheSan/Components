@@ -1,0 +1,21 @@
+.black-drop{
+    position: fixed;
+    width: 100hv;
+    height: 100vw;
+    background: rgba(248, 7, 7, 0.21);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    top: 0;
+    left: 0;
+}
+.content{
+    width: 30vh;
+    height: 30vh;
+    color: black;
+    background: rgb(245, 12, 12);
+    border-radius: 10px;
+    position: fixed;
+    z-index: 101;
+}

@@ -1,9 +1,10 @@
 import React from "react"
-import Login from "./components/Login/Login"
+import Card from "./components/Login/UI/Card/Card"
+
 const App =()=>{
 	return (
 		<div>
-			<Login/>
+			<Card/>
 		</div>
 	)
 }
