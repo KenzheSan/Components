@@ -1,44 +1,38 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 
-const LoginForm = () => { // 
+const LoginForm = (props) => {
+	const [valid,setValid] = useState(false)
 	const textRef = useRef() //
 	const passwordRef = useRef() //
-	const loginHandler = async (e) => { //
-        e.preventDefault() //
-        let user = { //
-            text: textRef.current.value,
-            password: passwordRef.current.value
-        }
-		try {//
-			const response = await fetch(
-				'https://react-http-test-a5917-default-rtdb.firebaseio.com/users.json',
-				{
-					method: 'POST',
-					body: JSON.stringify(user),
-					headers: {
-						'Content-type': 'application/json',
-					},
-				},
-			)
-			if (!response.ok) {
-				throw new Error(
-					`Failed to login something wrong ${response.status}`,
-				)
-			}
-			const data = await response.json()
-            console.log(data);
-		} catch (error) {
-			console.log(error) //
+
+	const validChangeHandler = () =>{
+		if(textRef.current.value.trim().length > 0 || passwordRef.current.value.trim().length > 0){
+			setValid(false)
 		}
 	}
 
+	const loginHandler = (e) => {
+		e.preventDefault()
+		if(textRef.current.value.trim().length === 0 || passwordRef.current.value.trim().length === 0){
+			setValid(true)
+			return
+		} 
+		let user = {
+			text: textRef.current.value,
+			password: passwordRef.current.value,
+		}
+
+		props.onTransition(user)
+	}
+
+
 	return (
 		<form onSubmit={loginHandler}>
-			<input ref={textRef} type='text' />
+			<input ref={textRef} type='text' onBlur={validChangeHandler}/>
 			<br />
-			<input ref={passwordRef} type='password' />
+			<input ref={passwordRef} type='password' onBlur={validChangeHandler}/>
 			<br />
-			<button type='submit'>Login</button>
+			<button disabled={valid} type='submit'>Login</button>
 		</form>
 	)
 }
