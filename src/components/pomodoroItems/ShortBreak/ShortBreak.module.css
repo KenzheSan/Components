@@ -1,0 +1,45 @@
+.shortbreak {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.time {
+	width: 348px;
+	height: 146px;
+	font-weight: bold;
+	font-size: 120px;
+	line-height: 146px;
+	color: #ffffff;
+	margin: 6px 0px;
+	text-align: center;
+	position: relative;
+	bottom: 25px;
+	left: 0;
+}
+.btn {
+	width: 150px;
+	height: 60px;
+	background: #ffffff;
+	border-radius: 6px;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 36px;
+	line-height: 44px;
+	text-transform: uppercase;
+    color: #4C8385; 
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.btn{
+    color: #4C8385; 
+    transition: all 2s ease-in;
+}
+.next {
+	width: 17.33px;
+	height: 21.33px;
+	position: relative;
+	left: 65px;
+	top: 0px;
+	cursor: pointer;
+}
