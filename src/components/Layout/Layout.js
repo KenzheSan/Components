@@ -4,14 +4,14 @@ import styles from '../Layout/Layout.module.css'
 
 const Layout = (props) => {
 	const location = useLocation()
-	console.log(location)
 	const path = location.pathname
-
+	const shortbreak = path === '/ShortBreak'
+	const longbreak = path === '/LongBreak'
 	return (
 		<div
-			className={`${styles.main} ${
-				path === '/ShortBreak' ? styles.shortbreak : ''
-			} ${path === '/LongBreak' ? styles.LongBreak : ''}`}
+			className={`${styles.main} 
+			${shortbreak && styles.shortbreak} 
+			${longbreak && styles.LongBreak}`}
 		>
 			<Content />
 			<main>{props.children}</main>

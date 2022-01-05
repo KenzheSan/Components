@@ -1,22 +1,13 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import style from './NavBar.module.css'
-import { NavLink } from 'react-router-dom'
+import NavList from './NavList'
 const NavBar = (props) => {
 	return (
 		<div className={style.navbar}>
 			<div className={style.routes}>
-				<NavLink activeClassName={style.active1} to='/pomodoro' >
-					Pomofocus
-				</NavLink>
-				<NavLink activeClassName={style.active2} to='/ShortBreak'>
-					Short Break
-				</NavLink>
-				<NavLink activeClassName={style.active3} to='/LongBreak'>
-					Long Break
-				</NavLink>
+				<NavList />
 			</div>
-
-			<div>{props.children}</div>
+			<Fragment>{props.children}</Fragment>
 		</div>
 	)
 }

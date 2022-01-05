@@ -1,11 +1,14 @@
 import ShortBreak from '../pomodoroItems/ShortBreak/ShortBreak'
 import Pomofocus from '../pomodoroItems/Pomofocus/Pomofocus'
 import LongBreak from '../pomodoroItems/LongBreak/LongBreak'
-import { Route } from 'react-router-dom'
+import { Redirect, Route } from 'react-router-dom'
 const RouterComponents = (props) => {
 	
 	return (
 		<div>
+			<Route path='/'exact>
+				<Redirect to='/pomodoro'/>
+			</Route>
 			<Route path='/pomodoro'>
 				<Pomofocus />
 			</Route>
