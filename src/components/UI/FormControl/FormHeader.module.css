@@ -1,0 +1,38 @@
+.x {
+	width: 12.73px;
+	height: 12.74px;
+	position: relative;
+	bottom: 41px;
+	float: right;
+	cursor: pointer;
+}
+.h1 {
+	width: 402;
+	height: 29px;
+	font-weight: bold;
+	font-size: 24px;
+	line-height: 29px;
+	text-transform: uppercase;
+	color: #bcbcbc;
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+	text-align: center;
+}
+.line {
+	width: 400px;
+
+}
+.timer {
+	width: 100px;
+	height: 15px;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 12px;
+	line-height: 15px;
+	margin: 11px 0px;
+	color: #000000;
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.navigation {
+	display: flex;
+	flex-direction: column;
+}
