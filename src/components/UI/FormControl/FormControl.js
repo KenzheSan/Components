@@ -1,18 +1,24 @@
 import styles from './FormControl.module.css'
 import line from '../../logo/line0.png'
-import {  useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import {
 	AUTOSTARTBREAKS,
 	AUTOSTARTPOMODOR,
+	INTERVALOFTIMERS,
 } from '../../store/constants'
+import { forwardRef } from 'react'
 
-
-const FormControl = (props) => {
-	const value = useSelector((state)=> state.timeSettings[AUTOSTARTPOMODOR])
-	const value2 = useSelector((state)=> state.timeSettings[AUTOSTARTBREAKS])
+const FormControl = forwardRef((props, ref) => {
+	const value = useSelector((state) => state.timeSettings[AUTOSTARTPOMODOR])
+	const value2 = useSelector((state) => state.timeSettings[AUTOSTARTBREAKS])
+	const intervalTime = useSelector(
+		(state) => state.timeSettings[INTERVALOFTIMERS],
+	)
+	
 	const onChangePomoHandler = (e) => {
 		props.onBoolingPomo(e.target.checked)
 	}
+
 	const onChangeBreaksHandler = (e) => {
 		props.onBoolingBreaks(e.target.checked)
 	}
@@ -41,11 +47,16 @@ const FormControl = (props) => {
 			<img className={styles.line} src={line} alt='/line' />
 			<div className={styles.break}>
 				<p className={styles.auto}>Long Break interval</p>
-				<input id='longbreak' type='number' />
+				<input
+					id='longbreak'
+					type='number'
+					defaultValue={intervalTime}
+					ref={ref}
+				/>
 			</div>
 			<img className={styles.line} src={line} alt='/line' />
 		</section>
 	)
-}
+})
 
 export default FormControl

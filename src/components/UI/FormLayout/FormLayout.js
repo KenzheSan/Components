@@ -1,35 +1,31 @@
-import { useState } from 'react'
-import { useDispatch} from 'react-redux'
+import {  useState ,useRef} from 'react'
+import { useDispatch, useSelector} from 'react-redux'
 import { Fragment } from 'react/cjs/react.production.min'
 import FormControl from '../FormControl/FormControl'
 import FormHeader from '../FormControl/FormHeader'
 import styles from './FormLayout.module.css'
 import { setActions } from '../../store/settings'
 import { toggleActions } from '../../store/Store'
+import {  INTERVALOFTIMERS, LONG_BREAK, POMODORO, SHORT_BREAK } from '../../store/constants'
 
 
 const FormLayout = (props) => {
-	
-	const [pomodoroTime, setPomodoroTime] = useState(1)
-	const [shortBreak, setShortBreak] = useState(1)
-	const [longBreak, setLongBreak] = useState(1)
+	const pomodoroInitialTime = useSelector((state) =>  state.timeSettings[POMODORO].minutes)
+	const shortBreakInitialTime = useSelector((state) =>  state.timeSettings[SHORT_BREAK].minutes)
+	const longBreakInitialTime = useSelector((state) =>  state.timeSettings[LONG_BREAK].minutes)
+	const initialTimeInterval = useSelector((state) =>  state.timeSettings[INTERVALOFTIMERS])
 
+	const pomodoreRef = useRef(pomodoroInitialTime)
+	const shortBreakRef = useRef(shortBreakInitialTime)
+	const longBreakRef = useRef(longBreakInitialTime)
+	const timerIntervalRef = useRef(initialTimeInterval)
+	
+	
 	const [isPomodor ,setIsPomodoro] = useState(null)
 	const [isBreaks ,setIsBreaks] = useState(null)
 
 	const disptach = useDispatch()
 
-	const pomodoroTimeChangeHandler = (e) => {
-		setPomodoroTime(e.target.value)
-	}
-
-	const shortbreakTimeChangeHandler = (e) => {
-		setShortBreak(e.target.value)
-	}
-
-	const longBreakTimeChangeHandler = (e) => {
-		setLongBreak(e.target.value)
-	}
 	const valueOfPomo = pomo => {
 		setIsPomodoro((init)=> pomo)
 	}
@@ -37,15 +33,18 @@ const FormLayout = (props) => {
 	const valueOfBreaks = breaks => {
 		setIsBreaks((init)=> breaks)
 	}
+
 	const formChangeHandler = (e) => {
 		e.preventDefault()
-		disptach(setActions.longBreak(longBreak))
-		disptach(setActions.shortBreak(shortBreak))
-		disptach(setActions.pomodor(pomodoroTime))
+		disptach(setActions.longBreak(longBreakRef.current.value))
+		disptach(setActions.shortBreak(shortBreakRef.current.value))
+		disptach(setActions.pomodor(pomodoreRef.current.value))
 		disptach(setActions.autoStartBreaks(isBreaks))
 		disptach(setActions.autoStartPomodoro(isPomodor))
+		disptach(setActions.setInterval(timerIntervalRef.current.value))
 		disptach(toggleActions.toggle())
 	}
+
 	return (
 		<Fragment>
 
@@ -57,9 +56,8 @@ const FormLayout = (props) => {
 						<input
 							id='pomodoro'
 							type='number'
-							onChange={pomodoroTimeChangeHandler}
-							value={pomodoroTime}
-							min={1}
+							defaultValue={pomodoroInitialTime}
+							ref={pomodoreRef}
 						/>
 					</div>
 					<div>
@@ -67,9 +65,8 @@ const FormLayout = (props) => {
 						<input
 							id='shortbreak'
 							type='number'
-							onChange={shortbreakTimeChangeHandler}
-							value={shortBreak}
-							min={1}
+							defaultValue={shortBreakInitialTime}
+							ref={shortBreakRef}
 						/>
 					</div>
 					<div>
@@ -77,13 +74,13 @@ const FormLayout = (props) => {
 						<input
 							id='longbreak'
 							type='number'
-							onChange={longBreakTimeChangeHandler}
-							value={longBreak}
-							min={1}
+							defaultValue={longBreakInitialTime}
+							min={0}
+							ref={longBreakRef}
 						/>
 					</div>
 				</section>
-				<FormControl onBoolingPomo={valueOfPomo} onBoolingBreaks={valueOfBreaks}/>
+				<FormControl  ref={timerIntervalRef} onBoolingPomo={valueOfPomo} onBoolingBreaks={valueOfBreaks}/>
 				<button type='sumbit' className={styles.button} >
 					OK
 				</button>
