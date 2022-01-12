@@ -9,6 +9,7 @@ import alarm from '../../assets/sounds/sound.mp3'
 import Progress from '../../UI/DisplayTime/DisplayTime'
 import { useState, useRef } from 'react'
 import formatingTime from '../../store/helpers'
+import { Prompt } from 'react-router-dom'
 
 const ShortBreak = () => {
 	const pomodoroTime = useSelector(
@@ -55,9 +56,10 @@ const ShortBreak = () => {
 		start()
 		isRunning ? stopTimer() : startTimer()
 	}
-
+	const [isActive,setIsActive] = useState(false)
 	return (
 		<Fragment>
+			<Prompt when={isActive} message={'hello'}/>
 			<Progress />
 			<div className={classes.shortbreak}>
 				<h1 className={classes.time}>
@@ -65,7 +67,7 @@ const ShortBreak = () => {
 					<span>:</span>
 					<span>{seconds}</span>
 				</h1>
-				<div>
+				<div onFocus={()=> setIsActive(true)}>
 					<button className={classes.btn} onClick={switchBtn}>
 						{isRunning ? 'PAUSE' : 'START'}
 					</button>

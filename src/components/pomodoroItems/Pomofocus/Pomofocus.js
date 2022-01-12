@@ -2,7 +2,7 @@ import styles from './Pomofocus.module.css'
 import next from '../../logo/next.png'
 import { useSelector } from 'react-redux'
 import { CONFIRM, INTERVALOFTIMERS, POMODORO } from '../../store/constants'
-import { Fragment, useEffect } from 'react'
+import { Fragment,  useEffect } from 'react'
 import useSound from 'use-sound'
 import sound from '../../assets/sounds/btn.mp3'
 import alarm from '../../assets/sounds/sound.mp3'
@@ -19,7 +19,7 @@ const Pomofocus = () => {
 		(state) => state.timeSettings[POMODORO].minutes,
 	)
 	
-	const [isActive, setIsActive] = useState(false)
+
 	const [timeLeft, setTimeLeft] = useState(pomodoroTime * 60)
 	const [isRunning, setIsRunning] = useState(false)
 	const [progress, setProgress] = useState(0)
@@ -47,7 +47,6 @@ const Pomofocus = () => {
 		clearInterval(intervalRef.current)
 		intervalRef.current = null
 	}
-	console.log(initialInterval);
 	const history = useHistory()
 	const resetTimer = () => {
 		if(initialInterval !== 0) {
@@ -81,10 +80,10 @@ const Pomofocus = () => {
 		start()
 		isRunning ? stopTimer() : startTimer()
 	}
-
+	const [isActive, setIsActive] = useState(false)
 	return (
 		<Fragment>
-			<Prompt when={isActive} message={(location) => [CONFIRM]} />
+			<Prompt when={isActive} message={CONFIRM} />
 			<Progress percent={percentage} />
 			<div className={styles.pomofocus}>
 				<h1 className={styles.time}>
@@ -92,7 +91,7 @@ const Pomofocus = () => {
 					<span>:</span>
 					<span>{seconds}</span>
 				</h1>
-				<div onFocus={() => setIsActive(true)}>
+				<div onFocus={()=> setIsActive(true)}>
 					<button className={styles.btn} onClick={switchBtn}>
 						{isRunning ? 'PAUSE' : 'START'}
 					</button>
