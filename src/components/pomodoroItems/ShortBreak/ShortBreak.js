@@ -1,37 +1,100 @@
 import classes from './ShortBreak.module.css'
 import next from '../../logo/next.png'
-import { useSelector } from 'react-redux'
-import { SHORT_BREAK } from '../../store/constants'
+import { useSelector, useDispatch } from 'react-redux'
+import {
+	SHORT_BREAK,
+	INTERVALOFTIMERS,
+	AUTOSTARTPOMODOR,
+	CONFIRM,
+	AUTOSTARTBREAKS,
+	INTERVALISSTARTED,
+} from '../../store/constants'
 import { Fragment } from 'react'
-import useSound from 'use-sound'
-import sound from '../../assets/sounds/btn.mp3'
-import alarm from '../../assets/sounds/sound.mp3'
 import Progress from '../../UI/DisplayTime/DisplayTime'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import formatingTime from '../../store/helpers'
 import { Prompt } from 'react-router-dom'
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
+import { setActions } from '../../store/settings'
 
 const ShortBreak = () => {
-	const pomodoroTime = useSelector(
+	const shortBreakTime = useSelector(
 		(state) => state.timeSettings[SHORT_BREAK].minutes,
 	)
+	const initialInterval = useSelector(
+		(state) => state.timeSettings[INTERVALOFTIMERS],
+	)
 
-	const [timeLeft, setTimeLeft] = useState(pomodoroTime * 60)
+	const intervalIsStart = useSelector(
+		(state) => state.timeSettings[INTERVALISSTARTED],
+	)
+	
+	const autoStartPomodor = useSelector(
+		(state) => state.timeSettings[AUTOSTARTPOMODOR],
+	)
+	const autoStartBreaks = useSelector(
+		(state) => state.timeSettings[AUTOSTARTBREAKS],
+	)
+	// done
+
+	const [timeLeft, setTimeLeft] = useState(shortBreakTime * 60)
 	const [isRunning, setIsRunning] = useState(false)
+
+	const [isChecked, setIsChecked] = useState(false)
 	const intervalRef = useRef(null)
 
-	const startTimer = () => {
+	const [progress, setProgress] = useState(0)
+	const minutes = formatingTime(Math.floor(timeLeft / 60))
+	const seconds = formatingTime(timeLeft - minutes * 60)
+	const percentage = (progress / (shortBreakTime * 60)) * 100
+	const history = useHistory()
+
+	useEffect(() => {
+		setTimeLeft(shortBreakTime * 60)
+	}, [shortBreakTime])
+
+	const startTimer = useCallback(() => {
 		if (intervalRef.current !== null) return
+		setIsChecked(true)
 		setIsRunning(true)
 		intervalRef.current = setInterval(() => {
+			setProgress((prevState) => prevState + 1)
 			setTimeLeft((timeLeft) => {
 				if (timeLeft > 0) return timeLeft - 1
-				resetTimer()
-				play()
-				return 0
 			})
-		}, 1000)
-	}
+		}, 100)
+	}, [])
+
+	useEffect(() => {
+		if (intervalIsStart) {
+			if (autoStartBreaks) {
+				if (initialInterval > 0) {
+					startTimer()
+				}
+			}
+		}
+	}, [autoStartBreaks, initialInterval, intervalIsStart, startTimer])
+
+	useEffect(() => {
+		const autoStartTime = () => {
+			if (initialInterval > 0) {
+				if (autoStartBreaks) {
+					startTimer()
+				}
+			}
+		}
+		autoStartTime()
+	}, [autoStartBreaks, initialInterval, startTimer])
+
+	// done
+	useEffect(() => {
+		if (timeLeft - 1 === 0) {
+			stopTimer()
+			setProgress(0)
+			setTimeLeft(0)
+			setIsChecked(false)
+		}
+	}, [timeLeft])
 
 	const stopTimer = () => {
 		if (intervalRef.current === null) return
@@ -39,44 +102,82 @@ const ShortBreak = () => {
 		clearInterval(intervalRef.current)
 		intervalRef.current = null
 	}
-
-	const resetTimer = () => {
+	const disptach = useDispatch()
+	//done
+	const resetTimer = useCallback(() => {
 		clearInterval(intervalRef.current)
 		intervalRef.current = null
-		setTimeLeft(pomodoroTime * 60)
+		setTimeLeft(shortBreakTime * 60)
 		setIsRunning(false)
-	}
+		setProgress(0)
+	}, [shortBreakTime])
+	//done
+	useEffect(() => {
+		const nextLevel = async () => {
+			if (timeLeft === 0) {
+				if (autoStartPomodor) {
+					if (initialInterval > 1) {
+						disptach(setActions.minuseIntervalTime())
+						disptach(setActions.intervalStarted())
+						history.replace('/pomodoro')
+						await setIsChecked(false)
+					}else{
+						console.log(initialInterval);
+						disptach(setActions.intervalStoped())
+						history.replace('/LongBreak')
+						await setIsChecked(false)
+					}
+				} else {
+					history.replace('/LongBreak')
+					console.log('herro');
+				}
+				await resetTimer()
+			}
+		}
+		nextLevel()
+	}, [
+		autoStartPomodor,
+		disptach,
+		history,
+		initialInterval,
+		resetTimer,
+		timeLeft,
+	])
+	// done
+	useEffect(() => {
+		return () => {
+			clearInterval(intervalRef.current)
+			intervalRef.current = null
+			setTimeLeft(shortBreakTime * 60)
+			setIsRunning(false)
+		}
+	}, [shortBreakTime])
 
-	const minutes = formatingTime(Math.floor(timeLeft / 60))
-	const seconds = formatingTime(timeLeft - minutes * 60)
-	const [start] = useSound(sound)
-	const [play] = useSound(alarm)
+
+
+	// const [start] = useSound(sound)
+	// const [play] = useSound(alarm)
 
 	const switchBtn = () => {
-		start()
+		// start()
 		isRunning ? stopTimer() : startTimer()
 	}
-	const [isActive,setIsActive] = useState(false)
 	return (
 		<Fragment>
-			<Prompt when={isActive} message={'hello'}/>
-			<Progress />
+			<Prompt when={isChecked} message={CONFIRM} />
+			<Progress percent={percentage} />
 			<div className={classes.shortbreak}>
 				<h1 className={classes.time}>
 					<span>{minutes}</span>
 					<span>:</span>
 					<span>{seconds}</span>
 				</h1>
-				<div onFocus={()=> setIsActive(true)}>
+				<div>
 					<button className={classes.btn} onClick={switchBtn}>
 						{isRunning ? 'PAUSE' : 'START'}
 					</button>
 					{isRunning && (
-						<img
-							className={classes.next}
-							src={next}
-							alt='/'
-						/>
+						<img className={classes.next} src={next} alt='/' />
 					)}
 				</div>
 			</div>

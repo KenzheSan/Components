@@ -15,27 +15,29 @@ const FormLayout = (props) => {
 	const longBreakInitialTime = useSelector((state) =>  state.timeSettings[LONG_BREAK].minutes)
 	const initialTimeInterval = useSelector((state) =>  state.timeSettings[INTERVALOFTIMERS])
 
-	const pomodoreRef = useRef(pomodoroInitialTime)
-	const shortBreakRef = useRef(shortBreakInitialTime)
+	const pomodoreRef = useRef()
+	const shortBreakRef = useRef()
 	const longBreakRef = useRef(longBreakInitialTime)
 	const timerIntervalRef = useRef(initialTimeInterval)
 	
 	
-	const [isPomodor ,setIsPomodoro] = useState(null)
-	const [isBreaks ,setIsBreaks] = useState(null)
+	const [isPomodor ,setIsPomodoro] = useState(false)
+	const [isBreaks ,setIsBreaks] = useState(false)
 
 	const disptach = useDispatch()
 
 	const valueOfPomo = pomo => {
-		setIsPomodoro((init)=> pomo)
+		console.log(pomo);
+		setIsPomodoro(pomo)
 	}
 
 	const valueOfBreaks = breaks => {
-		setIsBreaks((init)=> breaks)
+		setIsBreaks(breaks)
 	}
-
+// изменить стор
 	const formChangeHandler = (e) => {
 		e.preventDefault()
+		console.log(isBreaks, isPomodor);
 		disptach(setActions.longBreak(longBreakRef.current.value))
 		disptach(setActions.shortBreak(shortBreakRef.current.value))
 		disptach(setActions.pomodor(pomodoreRef.current.value))

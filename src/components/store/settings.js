@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {  POMODORO,SHORT_BREAK,LONG_BREAK,  AUTOSTARTBREAKS, AUTOSTARTPOMODOR, INTERVALOFTIMERS } from "./constants";
+import {  POMODORO,SHORT_BREAK,LONG_BREAK,  AUTOSTARTBREAKS, AUTOSTARTPOMODOR, INTERVALOFTIMERS,INTERVALISSTARTED } from "./constants";
 const initialState = {
     [AUTOSTARTBREAKS]: true,
-    [AUTOSTARTPOMODOR] : true   ,
-    [INTERVALOFTIMERS] : 1,
+    [AUTOSTARTPOMODOR] : true,
+    [INTERVALOFTIMERS] : 4  ,
+    [INTERVALISSTARTED] : false,
     [POMODORO]: {
         minutes: 1,
     },
@@ -36,11 +37,17 @@ const settings = createSlice({
         autoStartBreaks(state,action) {
             state[AUTOSTARTBREAKS] = action.payload
         },
-        setInterval(state,action){
-            state[INTERVALOFTIMERS] = action.payload
+        setInterval(state,{payload}){
+            state[INTERVALOFTIMERS] = payload
         },
         minuseIntervalTime(state){
             state[INTERVALOFTIMERS] = state[INTERVALOFTIMERS] - 1
+        },
+        intervalStarted(state){
+            state[INTERVALISSTARTED] = true
+        },
+        intervalStoped(state) {
+            state[INTERVALISSTARTED] = false
         }
     }
 })

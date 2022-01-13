@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux'
 function App() {
 	
 	const showHide = useSelector((state) => state.toggle.modal)
-
+	
 	return (
 		<Layout>
 			{showHide && <FormModal />}

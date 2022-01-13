@@ -22,6 +22,8 @@ const FormControl = forwardRef((props, ref) => {
 	const onChangeBreaksHandler = (e) => {
 		props.onBoolingBreaks(e.target.checked)
 	}
+
+
 	return (
 		<section className={styles.checkbox}>
 			<img className={styles.line} src={line} alt='/line' />
@@ -31,7 +33,7 @@ const FormControl = forwardRef((props, ref) => {
 					className={styles.radio}
 					type='checkbox'
 					onChange={onChangeBreaksHandler}
-					defaultChecked={value2}
+					defaultValue={value2}
 				/>
 			</div>
 			<img className={styles.line} src={line} alt='/line' />
@@ -41,7 +43,7 @@ const FormControl = forwardRef((props, ref) => {
 					className={`${styles.radio}`}
 					type='checkbox'
 					onChange={onChangePomoHandler}
-					defaultChecked={value}
+					defaultValue={value}
 				/>
 			</div>
 			<img className={styles.line} src={line} alt='/line' />
@@ -50,8 +52,8 @@ const FormControl = forwardRef((props, ref) => {
 				<input
 					id='longbreak'
 					type='number'
-					defaultValue={intervalTime}
 					ref={ref}
+					defaultValue={intervalTime}
 				/>
 			</div>
 			<img className={styles.line} src={line} alt='/line' />
