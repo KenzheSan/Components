@@ -23,6 +23,9 @@ const settings = createSlice({
     name: "Pomodoro",
     initialState: initialState,
     reducers: {
+        setInterval(state,{payload}){
+            state[INTERVALOFTIMERS] = payload
+        },
         pomodor(state,action) {
             state[POMODORO].minutes = action.payload
         },
@@ -32,15 +35,13 @@ const settings = createSlice({
         longBreak(state,action) {
             state[LONG_BREAK].minutes = action.payload
         },
-        autoStartPomodoro(state,action) {
-            state[AUTOSTARTPOMODOR] = action.payload
+        autoStartPomodoro(state) {
+            state[AUTOSTARTPOMODOR] = !state[AUTOSTARTPOMODOR]
         },
-        autoStartBreaks(state,action) {
-            state[AUTOSTARTBREAKS] = action.payload
+        autoStartBreaks(state) {
+            state[AUTOSTARTBREAKS] = !state[AUTOSTARTBREAKS]
         },
-        setInterval(state,{payload}){
-            state[INTERVALOFTIMERS] = payload
-        },
+
         minuseIntervalTime(state){
             state[INTERVALOFTIMERS] = state[INTERVALOFTIMERS] - 1
         },

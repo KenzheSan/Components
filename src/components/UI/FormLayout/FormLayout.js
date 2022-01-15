@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import {  useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Fragment } from 'react/cjs/react.production.min'
 import FormControl from '../FormControl/FormControl'
@@ -32,28 +32,15 @@ const FormLayout = (props) => {
 	const longBreakRef = useRef(longBreakInitialTime)
 	const timerIntervalRef = useRef(initialTimeInterval)
 
-	const [isPomodor, setIsPomodoro] = useState(false)
-	const [isBreaks, setIsBreaks] = useState(false)
 
 	const disptach = useDispatch()
 
-	const valueOfPomo = (pomo) => {
-		setIsPomodoro(pomo)
-	}
-
-	const valueOfBreaks = (breaks) => {
-		setIsBreaks(breaks.target.checked)
-
-	}
 	// изменить стор
 	const formChangeHandler = (e) => {
 		e.preventDefault()
-		console.log(isBreaks, isPomodor)
 		disptach(setActions.longBreak(longBreakRef.current.value))
 		disptach(setActions.shortBreak(shortBreakRef.current.value))
 		disptach(setActions.pomodor(pomodoreRef.current.value))
-		disptach(setActions.autoStartBreaks(isBreaks))
-		disptach(setActions.autoStartPomodoro(isPomodor))
 		disptach(setActions.setInterval(timerIntervalRef.current.value))
 		disptach(toggleActions.toggle())
 	}
@@ -94,8 +81,7 @@ const FormLayout = (props) => {
 				</section>
 				<FormControl
 					ref={timerIntervalRef}
-					onBoolingPomo={valueOfPomo}
-					onBoolingBreaks={valueOfBreaks}
+					onTransfer={formChangeHandler}
 				/>
 				<button type='sumbit' className={styles.button}>
 					OK
