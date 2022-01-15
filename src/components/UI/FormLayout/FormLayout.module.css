@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Subrayada:wght@400;700&family=Montserrat:wght@100;200&display=swap');
+/* font-family: 'Montserrat', sans-serif; */
+
 label {
 	font-weight: 500;
 	font-size: 12px;
@@ -7,6 +10,7 @@ label {
 	order: 0;
 	margin: 8px 0px;
 	display: block;
+	font-family: 'Montserrat', sans-serif;
 }
 input {
 	width: 48px;
@@ -55,6 +59,7 @@ form {
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
+	font-family: 'Montserrat', sans-serif;
 }
 
 .header {
@@ -76,4 +81,5 @@ form {
 	position: relative;
 	top: 0;
 	right: 49px;
+	font-family: 'Montserrat', sans-serif;
 }

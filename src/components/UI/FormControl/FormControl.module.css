@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Subrayada:wght@400;700&family=Montserrat:wght@100;200&display=swap');
+
+
 .line {
 	width: 400px;   
 	margin-bottom: 10px; 
@@ -42,6 +45,8 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	font-family: 'Montserrat', sans-serif;
+
 }
 .auto {
 	font-style: normal;
@@ -55,4 +60,6 @@
 	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     width: 219px;
     height: 22px;
+	font-family: 'Montserrat', sans-serif;
+
 }

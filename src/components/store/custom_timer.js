@@ -24,6 +24,7 @@ function CustomTimer(time) {
 			})
 		}, 100)
 	}, [])
+
     const stopTimer = () => {
 		if (intervalRef.current === null) return
 		setIsRunning(false)
@@ -55,9 +56,6 @@ function CustomTimer(time) {
     useEffect(() => {
 		return () => resetTimer()
 	}, [time, resetTimer])
-
-
-
 
     return {
         startTimer,

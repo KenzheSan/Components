@@ -3,18 +3,12 @@ import {  POMODORO,SHORT_BREAK,LONG_BREAK, ROUND,  AUTOSTARTBREAKS, AUTOSTARTPOM
 const initialState = {
     [AUTOSTARTBREAKS]: true,
     [AUTOSTARTPOMODOR] : true,
-    [INTERVALOFTIMERS] : 3,
+    [INTERVALOFTIMERS] : 5,
     [INTERVALISSTARTED] : false,
     [ROUND] : 0,
-    [POMODORO]: {
-        minutes: 1,
-    },
-    [SHORT_BREAK]: {
-        minutes: 1,
-    },
-    [LONG_BREAK]: {
-        minutes: 1,
-    }
+    [POMODORO]: 1,
+    [SHORT_BREAK]: 1,
+    [LONG_BREAK]: 1,
 }
 
 
@@ -23,17 +17,12 @@ const settings = createSlice({
     name: "Pomodoro",
     initialState: initialState,
     reducers: {
-        setInterval(state,{payload}){
-            state[INTERVALOFTIMERS] = payload
-        },
-        pomodor(state,action) {
-            state[POMODORO].minutes = action.payload
-        },
-        shortBreak(state,action) {
-            state[SHORT_BREAK].minutes = action.payload 
-        },
-        longBreak(state,action) {
-            state[LONG_BREAK].minutes = action.payload
+        updateClock(state,action){
+            const { longBreakTime,shortBreakTime,pomodoroTime,setInterval} = action.payload
+            state[POMODORO] = pomodoroTime  
+            state[SHORT_BREAK] = shortBreakTime
+            state[LONG_BREAK] = longBreakTime
+            state[INTERVALOFTIMERS] = setInterval
         },
         autoStartPomodoro(state) {
             state[AUTOSTARTPOMODOR] = !state[AUTOSTARTPOMODOR]
@@ -41,23 +30,39 @@ const settings = createSlice({
         autoStartBreaks(state) {
             state[AUTOSTARTBREAKS] = !state[AUTOSTARTBREAKS]
         },
-
-        minuseIntervalTime(state){
-            state[INTERVALOFTIMERS] = state[INTERVALOFTIMERS] - 1
-        },
-        intervalStarted(state){
-            state[INTERVALISSTARTED] = true
-        },
-        intervalStoped(state) {
-            state[INTERVALISSTARTED] = false
-        },
-        setRound(state){
-            state[ROUND] = state[ROUND] + 1
-        },
         clearRoundInterval(state){
             state[ROUND] = 0
+        },
+
+        setPreferences(state){
+            state[INTERVALOFTIMERS] = state[INTERVALOFTIMERS] - 1
+            state[ROUND] = state[ROUND] + 1
+            state[INTERVALISSTARTED] = true
+        },
+        noShortRest(state){
+            state[ROUND] = state[ROUND] + 1
+            state[INTERVALISSTARTED] = true
+        },
+        setNewInterval(state,{payload}){
+            state[INTERVALOFTIMERS] = payload
+            state[ROUND] = 0
         }
-        
+        // setInterval(state,{payload}){
+        //     state[INTERVALOFTIMERS] = payload
+        // },
+        // minuseIntervalTime(state){
+        //     state[INTERVALOFTIMERS] = state[INTERVALOFTIMERS] - 1
+        // },
+        // intervalStarted(state){
+        //     state[INTERVALISSTARTED] = true
+        // },
+        // intervalStoped(state) {
+        //     state[INTERVALISSTARTED] = false
+        // },
+        // setRound(state){
+        //     state[ROUND] = state[ROUND] + 1
+        // },
+
     }
 })
 

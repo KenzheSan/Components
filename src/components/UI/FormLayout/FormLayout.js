@@ -6,42 +6,28 @@ import FormHeader from '../FormControl/FormHeader'
 import styles from './FormLayout.module.css'
 import { setActions } from '../../store/settings'
 import { toggleActions } from '../../store/Store'
-import {
-	INTERVALOFTIMERS,
-	LONG_BREAK,
-	POMODORO,
-	SHORT_BREAK,
-} from '../../store/constants'
 
-const FormLayout = (props) => {
-	const pomodoroInitialTime = useSelector(
-		(state) => state.timeSettings[POMODORO].minutes,
-	)
-	const shortBreakInitialTime = useSelector(
-		(state) => state.timeSettings[SHORT_BREAK].minutes,
-	)
-	const longBreakInitialTime = useSelector(
-		(state) => state.timeSettings[LONG_BREAK].minutes,
-	)
-	const initialTimeInterval = useSelector(
-		(state) => state.timeSettings[INTERVALOFTIMERS],
-	)
+
+const FormLayout = () => {
+
+	const {pomodoro ,short_break,long_break,intervalOfTimers} = useSelector((state)=> state.timeSettings)
 
 	const pomodoreRef = useRef()
 	const shortBreakRef = useRef()
-	const longBreakRef = useRef(longBreakInitialTime)
-	const timerIntervalRef = useRef(initialTimeInterval)
-
+	const longBreakRef = useRef(long_break)
+	const timerIntervalRef = useRef(intervalOfTimers)
 
 	const disptach = useDispatch()
 
-	// изменить стор
 	const formChangeHandler = (e) => {
 		e.preventDefault()
-		disptach(setActions.longBreak(longBreakRef.current.value))
-		disptach(setActions.shortBreak(shortBreakRef.current.value))
-		disptach(setActions.pomodor(pomodoreRef.current.value))
-		disptach(setActions.setInterval(timerIntervalRef.current.value))
+		let updateClock = {
+			longBreakTime: longBreakRef.current.value,
+			shortBreakTime: shortBreakRef.current.value,
+			pomodoroTime: pomodoreRef.current.value,
+			setInterval: timerIntervalRef.current.value
+		}
+		disptach(setActions.updateClock(updateClock))
 		disptach(toggleActions.toggle())
 	}
 
@@ -55,7 +41,7 @@ const FormLayout = (props) => {
 						<input
 							id='pomodoro'
 							type='number'
-							defaultValue={pomodoroInitialTime}
+							defaultValue={pomodoro}
 							ref={pomodoreRef}
 						/>
 					</div>
@@ -64,7 +50,7 @@ const FormLayout = (props) => {
 						<input
 							id='shortbreak'
 							type='number'
-							defaultValue={shortBreakInitialTime}
+							defaultValue={short_break}
 							ref={shortBreakRef}
 						/>
 					</div>
@@ -73,7 +59,7 @@ const FormLayout = (props) => {
 						<input
 							id='longbreak'
 							type='number'
-							defaultValue={longBreakInitialTime}
+							defaultValue={long_break}
 							min={0}
 							ref={longBreakRef}
 						/>

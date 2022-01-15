@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Subrayada:wght@400;700&family=Montserrat:wght@100;200&display=swap');
+
+
 .x {
 	width: 12.73px;
 	height: 12.74px;
@@ -14,7 +17,7 @@
 	line-height: 29px;
 	text-transform: uppercase;
 	color: #bcbcbc;
-	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+	font-family: 'Montserrat', sans-serif;
 	text-align: center;
 }
 .line {
@@ -30,7 +33,7 @@
 	line-height: 15px;
 	margin: 11px 0px;
 	color: #000000;
-	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+	font-family: 'Montserrat', sans-serif;
 }
 .navigation {
 	display: flex;

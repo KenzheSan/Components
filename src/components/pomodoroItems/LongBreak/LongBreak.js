@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Fragment } from 'react'
 import Progress from '../../UI/DisplayTime/DisplayTime'
 import styles from './LongBreak.module.css'
-import { useEffect} from 'react'
+import { useEffect } from 'react'
 import {
 	LONG_BREAK,
 	CONFIRM,
@@ -11,27 +11,14 @@ import {
 	AUTOSTARTPOMODOR,
 	AUTOSTARTBREAKS,
 	RESETCONFIRM,
+	INTERVALISSTARTED,
 } from '../../store/constants'
 import { Prompt } from 'react-router-dom'
 import { setActions } from '../../store/settings'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 import CustomTimer from '../../store/custom_timer'
 const LongBreak = () => {
-	const longBreakTime = useSelector(
-		(state) => state.timeSettings[LONG_BREAK].minutes,
-	)
-	const {		isChecked,
-		setIsChecked,
-		startTimer,
-		minutes,
-		seconds,
-		stopTimer,
-		percentage,
-		timeLeft,
-		isRunning,} = CustomTimer(longBreakTime)
-
-	const disptach = useDispatch()
-
+	const longBreakTime = useSelector((state) => state.timeSettings[LONG_BREAK])
 	const initialRound = useSelector((state) => state.timeSettings[ROUND])
 
 	const isAutoStartPomodor = useSelector(
@@ -42,21 +29,41 @@ const LongBreak = () => {
 		(state) => state.timeSettings[AUTOSTARTBREAKS],
 	)
 
+	const isInterValIsStarted = useSelector(
+		(state) => state.timeSettings[INTERVALISSTARTED],
+	)
+
 	const history = useHistory()
+
+	const {
+		isChecked,
+		setIsChecked,
+		startTimer,
+		minutes,
+		seconds,
+		stopTimer,
+		percentage,
+		timeLeft,
+		isRunning,
+	} = CustomTimer(longBreakTime)
+
+	const disptach = useDispatch()
+
 	useEffect(() => {
-		if (isAutoStartPomodor) {
-			if (isAutoStartShortBreak) {
-				startTimer()
+		if (isInterValIsStarted) {
+			if (isAutoStartPomodor) {
+				if (isAutoStartShortBreak) {
+					startTimer()
+				}	
 			}
 		}
-	}, [isAutoStartPomodor, isAutoStartShortBreak, startTimer])
+	}, [isAutoStartPomodor, isAutoStartShortBreak, isInterValIsStarted, startTimer])
 
 	useEffect(() => {
 		const newRound = async () => {
 			if (timeLeft === 0) {
 				if (initialRound > 1) {
-					disptach(setActions.setInterval(initialRound))
-					disptach(setActions.clearRoundInterval())
+					disptach(setActions.setNewInterval(initialRound))
 					history.replace('/pomodoro')
 					await setIsChecked(false)
 				} else {
@@ -68,7 +75,7 @@ const LongBreak = () => {
 		}
 		newRound()
 	}, [disptach, history, initialRound, setIsChecked, timeLeft])
-
+	console.log(initialRound);
 	const messageToUser = async () => {
 		if (window.confirm(CONFIRM)) {
 			await setIsChecked(false)
@@ -79,9 +86,7 @@ const LongBreak = () => {
 	}
 
 	const switchBtn = () => {
-		isRunning
-			? stopTimer()
-			: startTimer()
+		isRunning ? stopTimer() : startTimer()
 	}
 	return (
 		<Fragment>

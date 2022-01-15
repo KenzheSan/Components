@@ -1,23 +1,14 @@
 import styles from './FormControl.module.css'
 import line from '../../logo/line0.png'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-	AUTOSTARTBREAKS,
-	AUTOSTARTPOMODOR,
-	INTERVALOFTIMERS,
-} from '../../store/constants'
 import { forwardRef } from 'react'
 import { setActions } from '../../store/settings'
 
 const FormControl = forwardRef((props, ref) => {
-	const value = useSelector((state) => state.timeSettings[AUTOSTARTPOMODOR])
-	const value2 = useSelector((state) => state.timeSettings[AUTOSTARTBREAKS])
 
+	const {autostartbreaks ,autostartpomodoro ,intervalOfTimers} = useSelector((state)=> state.timeSettings)
 
 	const disptach = useDispatch()
-	const intervalTime = useSelector(
-		(state) => state.timeSettings[INTERVALOFTIMERS],
-	)
 
 	const onChangePomoHandler = () => {
 		disptach(setActions.autoStartPomodoro())
@@ -39,7 +30,7 @@ const FormControl = forwardRef((props, ref) => {
 					className={styles.radio}
 					type='checkbox'
 					onChange={onChangeBreaksHandler}
-					checked={value2}
+					checked={autostartbreaks}
 				/>
 			</div>
 			<img className={styles.line} src={line} alt='/line' />
@@ -49,7 +40,7 @@ const FormControl = forwardRef((props, ref) => {
 					className={`${styles.radio}`}
 					type='checkbox'
 					onChange={onChangePomoHandler}
-					checked={value}
+					checked={autostartpomodoro}
 				/>
 			</div>
 			<img className={styles.line} src={line} alt='/line' />
@@ -59,7 +50,7 @@ const FormControl = forwardRef((props, ref) => {
 					id='longbreak'
 					type='number'
 					ref={ref}
-					defaultValue={intervalTime}
+					defaultValue={intervalOfTimers}
 				/>
 			</div>
 			<img className={styles.line} src={line} alt='/line' />

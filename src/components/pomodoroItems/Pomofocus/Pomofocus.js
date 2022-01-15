@@ -30,7 +30,7 @@ const Pomofocus = () => {
 	)
 
 	const pomodoroTime = useSelector(
-		(state) => state.timeSettings[POMODORO].minutes,
+		(state) => state.timeSettings[POMODORO]
 	)
 
 	const history = useHistory()
@@ -61,15 +61,12 @@ const Pomofocus = () => {
 		const newRound = async () => {
 			if (timeLeft === 0) {
 				if (initialInterval > 1) {
-					disptach(setActions.minuseIntervalTime())
-					disptach(setActions.setRound())
-					disptach(setActions.intervalStarted())
+					disptach(setActions.setPreferences())
 					history.replace('/ShortBreak')
 					await setIsChecked(false)
 				} else {
-					disptach(setActions.setRound())
+					disptach(setActions.noShortRest())
 					history.replace('/LongBreak')
-					disptach(setActions.intervalStarted())
 					await setIsChecked(false)
 				}
 			}

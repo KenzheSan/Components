@@ -1,38 +1,20 @@
 import classes from './ShortBreak.module.css'
 import next from '../../logo/next.png'
 import { useSelector } from 'react-redux'
-import {
-	SHORT_BREAK,
-	INTERVALOFTIMERS,
-	CONFIRM,
-	AUTOSTARTBREAKS,
-	INTERVALISSTARTED,
-	RESETCONFIRM,
-} from '../../store/constants'
 import { Fragment } from 'react'
 import Progress from '../../UI/DisplayTime/DisplayTime'
 import { useEffect } from 'react'
 import { Prompt } from 'react-router-dom'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 import CustomTimer from '../../store/custom_timer'
+import { CONFIRM,RESETCONFIRM } from '../../store/constants'
 
 const ShortBreak = () => {
-	const shortBreakTime = useSelector(
-		(state) => state.timeSettings[SHORT_BREAK].minutes,
-	)
-	const initialInterval = useSelector(
-		(state) => state.timeSettings[INTERVALOFTIMERS],
-	)
 
-	const intervalIsStart = useSelector(
-		(state) => state.timeSettings[INTERVALISSTARTED],
-	)
+	const {short_break ,intervalIsStarted ,intervalOfTimers,autostartbreaks} = useSelector((state)=> state.timeSettings)
 
-	const autoStartBreaks = useSelector(
-		(state) => state.timeSettings[AUTOSTARTBREAKS],
-	)
-
-	const {		isChecked,
+	const {		
+		isChecked,
 		setIsChecked,
 		startTimer,
 		minutes,
@@ -40,28 +22,30 @@ const ShortBreak = () => {
 		stopTimer,
 		percentage,
 		timeLeft,
-		isRunning,} = CustomTimer(shortBreakTime)
+		isRunning,
+	} = CustomTimer(short_break)
+	
 	const history = useHistory()
 
 	useEffect(() => {
-		if (intervalIsStart) {
-			if (autoStartBreaks) {
+		if (intervalIsStarted) {
+			if (autostartbreaks) {
 				startTimer()
 			}
 		}
-	}, [autoStartBreaks, initialInterval, intervalIsStart, startTimer])
+	}, [autostartbreaks, intervalOfTimers, intervalIsStarted, startTimer])
 
 	useEffect(() => {
 		const newRound = async () => {
 			if (timeLeft === 0) {
-				if (initialInterval > 0) {
+				if (intervalOfTimers > 0) {
 					history.replace('/pomodoro')
 					await setIsChecked(false)
 				}
 			}
 		}
 		newRound()
-	}, [history, initialInterval, setIsChecked, timeLeft])
+	}, [history, intervalOfTimers, setIsChecked, timeLeft])
 
 	const messageToUser = async() => {
 		if(window.confirm(CONFIRM)){	
