@@ -12,15 +12,11 @@ import {
 	RESETCONFIRM
 } from '../../store/constants'
 import React, { Fragment, useEffect } from 'react'
-// import useSound from 'use-sound'
-// import sound from '../../assets/sounds/btn.mp3'
-// import alarm from '../../assets/sounds/sound.mp3'
 import Progress from '../../UI/DisplayTime/DisplayTime'
-import formatingTime from '../../store/helpers'
-import { useState, useRef } from 'react'
 import { setActions } from '../../store/settings'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 import { Prompt } from 'react-router-dom'
+import CustomTimer from '../../store/custom_timer'
 
 
 const Pomofocus = () => {
@@ -43,118 +39,51 @@ const Pomofocus = () => {
 	const pomodoroTime = useSelector(
 		(state) => state.timeSettings[POMODORO].minutes,
 	)
-	const [isChecked, setIsChecked] = useState(false)
 	const initialRound = useSelector((state)=> state.timeSettings[ROUND])
 
 	const history = useHistory()
-// useCountDown
-	const [timeLeft, setTimeLeft] = useState(pomodoroTime * 60)
-	const [isRunning, setIsRunning] = useState(false)
 
-	const [progress, setProgress] = useState(0)
-	const percentage = (progress / (pomodoroTime * 60)) * 100
-
-	const intervalRef = useRef(null)
-
-	const minutes = formatingTime(Math.floor(timeLeft / 60))
-	const seconds = formatingTime(timeLeft - minutes * 60)
-		
-	useEffect(() => {
-		setTimeLeft(pomodoroTime * 60)
-	}, [pomodoroTime])
-
-	const startTimer = React.useCallback(() => {
-		if (intervalRef.current !== null) return
-		setIsRunning(true)
-		setIsChecked(true)
-		intervalRef.current = setInterval(() => {
-			setProgress((prevState) => prevState + 1)
-			setTimeLeft((timeLeft) => {
-				if (timeLeft > 0) return timeLeft - 1
-			})
-		}, 100)
-	}, [])
+	const customTimer = CustomTimer(pomodoroTime)	
 
 	useEffect(() => {
 			if (isAutoStartPomodor) {
 				if(intervalIsStart){
-					startTimer()
+					customTimer.startTimer()
 				}				
 			}
 	
-	},[initialInterval, isAutoStartPomodor, intervalIsStart, startTimer])
-
-
-
-	React.useEffect(() => {
-		if(timeLeft - 1 === 0) {
-			stopTimer()
-			setProgress(0)
-			setTimeLeft(0)
-			setIsChecked(false)
-		}
-	}, [timeLeft])
-
-	const stopTimer = () => {
-		if (intervalRef.current === null) return
-		setIsRunning(false)
-		clearInterval(intervalRef.current)
-		intervalRef.current = null
-	}
+	},[initialInterval, isAutoStartPomodor, intervalIsStart, customTimer.startTimer, customTimer])
 
 	const disptach = useDispatch()
 
-	const resetTimer = React.useCallback(() => {
-		clearInterval(intervalRef.current)
-		intervalRef.current = null
-		setTimeLeft(pomodoroTime * 60)
-		setIsRunning(false)
-		setProgress(0)
-	},[pomodoroTime])
-
-
-
 	useEffect(()=> {
 		const newRound = async() => {
-			if(timeLeft === 0) {
+			if(customTimer.timeLeft === 0) {
 				if(initialInterval > 1){
 					disptach(setActions.minuseIntervalTime())
 					disptach(setActions.setRound())
 					disptach(setActions.intervalStarted())
 					history.replace('/ShortBreak')
-					await setIsChecked(false)
+					await customTimer.setIsChecked(false)
 				}else{
 					disptach(setActions.setRound())
 					history.replace('/LongBreak')
 					disptach(setActions.intervalStarted())
-					await setIsChecked(false)
+					await customTimer.setIsChecked(false)
 					
 				}
 			}
 		}
 		newRound()
-	},[disptach, history, initialInterval, timeLeft])
-
-
-	useEffect(() => {
-		return () => resetTimer()
-	}, [pomodoroTime, resetTimer])
-
-	// const [start] = useSound(sound)
-	// const [play] = useSound(alarm)
-
-	const switchBtn = () => {
-		// start()
-		isRunning ? stopTimer() : startTimer()
-	}
+	},[customTimer, disptach, history, initialInterval])
 
 	const messageToUser = async() => {
 		if(window.confirm(CONFIRM)){
 			if(initialInterval > 1){
-				await setIsChecked(false)
+				await customTimer.setIsChecked(false)
 				history.replace('/ShortBreak')
 			}else{
-				await setIsChecked(false)
+				await customTimer.setIsChecked(false)
 				history.replace('/LongBreak')
 			}
 		}else{
@@ -162,25 +91,29 @@ const Pomofocus = () => {
 		}
 	}
 
+    const switchBtn = () => {
+		// start()
+	customTimer.isRunning ? customTimer.stopTimer() : customTimer.startTimer()
+	}
 
 	return (
 		<Fragment>
 		
-			<Prompt when={isChecked} message={RESETCONFIRM} />
+			<Prompt when={customTimer.isChecked} message={RESETCONFIRM} />
 			<div className={styles.absolute}>
-			<Progress percent={percentage} />
+			<Progress percent={customTimer.percentage} />
 			</div>
 			<div className={styles.pomofocus}>
 				<h1 className={styles.time}>
-					<span>{minutes}</span>
+					<span>{customTimer.minutes}</span>
 					<span>:</span>
-					<span>{seconds}</span>
+					<span>{customTimer.seconds}</span>
 				</h1>
 				<div>
 					<button className={styles.btn} onClick={switchBtn}>
-						{isRunning ? 'PAUSE' : 'START'}
+						{customTimer.isRunning ? 'PAUSE' : 'START'}
 					</button>
-					{isRunning && (
+					{customTimer.isRunning && (
 						<img className={styles.next} src={next} onClick={messageToUser} alt='/' />
 					)}
 				</div>
@@ -188,4 +121,5 @@ const Pomofocus = () => {
 		</Fragment>
 	)
 }
+
 export default Pomofocus

@@ -100,31 +100,7 @@ const LongBreak = () => {
 		}
 	}, [isAutoStartPomodor, isAutoStartShortBreak, startTimer])
 	
-	// useEffect(() => {
-	// 	const nextLevel = async () => {
-	// 		if (timeLeft === 0) {
-	// 			if (initialInterval > 0) {
-	// 				if (intervalIsStart) {
-	// 					console.log('herro')
-	// 					disptach(setActions.intervalStoped())
-	// 					disptach(setActions.minuseIntervalTime())
-	// 					history.replace('/pomodoro')
-	// 					await setIsChecked(false)
-	// 				}else{
-	// 					resetTimer()
-	// 				}
-	// 			}
-	// 		}
-	// 	}
-	// 	nextLevel()
-	// }, [
-	// 	disptach,
-	// 	history,
-	// 	initialInterval,
-	// 	intervalIsStart,
-	// 	resetTimer,
-	// 	timeLeft,
-	// ])
+
 	useEffect(()=> {
 		const newRound = async() => {
 			if(timeLeft === 0){

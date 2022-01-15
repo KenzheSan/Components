@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {  POMODORO,SHORT_BREAK,LONG_BREAK, ROUND,  AUTOSTARTBREAKS, AUTOSTARTPOMODOR, INTERVALOFTIMERS,INTERVALISSTARTED } from "./constants";
 const initialState = {
-    [AUTOSTARTBREAKS]: true,
-    [AUTOSTARTPOMODOR] : true,
+    [AUTOSTARTBREAKS]: false,
+    [AUTOSTARTPOMODOR] : false,
     [INTERVALOFTIMERS] : 1,
     [INTERVALISSTARTED] : false,
     [ROUND] : 0,
