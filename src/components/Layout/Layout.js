@@ -14,7 +14,7 @@ const Layout = (props) => {
 			${longbreak && styles.LongBreak}`}
 		>
 			<Content />
-			<main>{props.children}</main>
+			<main className={styles.mainBox}>{props.children}</main>
 		</div>
 	)
 }

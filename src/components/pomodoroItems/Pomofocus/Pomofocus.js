@@ -8,6 +8,8 @@ import {
 	INTERVALOFTIMERS,
 	POMODORO,
 	INTERVALISSTARTED,
+	ROUND,
+	RESETCONFIRM
 } from '../../store/constants'
 import React, { Fragment, useEffect } from 'react'
 // import useSound from 'use-sound'
@@ -26,6 +28,7 @@ const Pomofocus = () => {
 	const initialInterval = useSelector(
 		(state) => state.timeSettings[INTERVALOFTIMERS],
 	) 
+
 	const isAutoStartShortBreak = useSelector(
 		(state) => state.timeSettings[AUTOSTARTBREAKS],
 	)
@@ -41,6 +44,7 @@ const Pomofocus = () => {
 		(state) => state.timeSettings[POMODORO].minutes,
 	)
 	const [isChecked, setIsChecked] = useState(false)
+	const initialRound = useSelector((state)=> state.timeSettings[ROUND])
 
 	const history = useHistory()
 // useCountDown
@@ -71,17 +75,14 @@ const Pomofocus = () => {
 		}, 100)
 	}, [])
 
-console.log('это инит' ,initialInterval , 'первая странцица');
 	useEffect(() => {
 			if (isAutoStartPomodor) {
-				if (intervalIsStart) {
-					if (initialInterval > 0) {
-						startTimer()
-					}
-				}
+				if(intervalIsStart){
+					startTimer()
+				}				
 			}
 	
-	},[initialInterval, intervalIsStart, isAutoStartPomodor,startTimer])
+	},[initialInterval, isAutoStartPomodor, intervalIsStart, startTimer])
 
 
 
@@ -111,32 +112,33 @@ console.log('это инит' ,initialInterval , 'первая странциц�
 		setProgress(0)
 	},[pomodoroTime])
 
-	useEffect(() => {
-		const nextLevel = async () => {
-			if (timeLeft === 0) {
-				if (initialInterval > 0) {
-					if (isAutoStartShortBreak) {
-						disptach(setActions.intervalStarted())
-						await setIsChecked(false)  
-						history.replace('/ShortBreak')
-					}
-					resetTimer()
+
+
+	useEffect(()=> {
+		const newRound = async() => {
+			if(timeLeft === 0) {
+				if(initialInterval > 1){
+					disptach(setActions.minuseIntervalTime())
+					disptach(setActions.setRound())
+					disptach(setActions.intervalStarted())
+					history.replace('/ShortBreak')
 					await setIsChecked(false)
+				}else{
+					disptach(setActions.setRound())
+					history.replace('/LongBreak')
+					disptach(setActions.intervalStarted())
+					await setIsChecked(false)
+					
 				}
-				resetTimer()
-				await setIsChecked(false)
 			}
 		}
-		nextLevel()
-	}, [disptach, history, initialInterval, isAutoStartShortBreak, timeLeft, startTimer, resetTimer])
+		newRound()
+	},[disptach, history, initialInterval, timeLeft])
+
+
 	useEffect(() => {
-		return () => {
-			clearInterval(intervalRef.current)
-			intervalRef.current = null
-			setTimeLeft(pomodoroTime * 60)
-			setIsRunning(false)
-		}
-	}, [pomodoroTime])
+		return () => resetTimer()
+	}, [pomodoroTime, resetTimer])
 
 	// const [start] = useSound(sound)
 	// const [play] = useSound(alarm)
@@ -146,10 +148,28 @@ console.log('это инит' ,initialInterval , 'первая странциц�
 		isRunning ? stopTimer() : startTimer()
 	}
 
+	const messageToUser = async() => {
+		if(window.confirm(CONFIRM)){
+			if(initialInterval > 1){
+				await setIsChecked(false)
+				history.replace('/ShortBreak')
+			}else{
+				await setIsChecked(false)
+				history.replace('/LongBreak')
+			}
+		}else{
+			return
+		}
+	}
+
+
 	return (
 		<Fragment>
-			<Prompt when={isChecked} message={CONFIRM} />
+		
+			<Prompt when={isChecked} message={RESETCONFIRM} />
+			<div className={styles.absolute}>
 			<Progress percent={percentage} />
+			</div>
 			<div className={styles.pomofocus}>
 				<h1 className={styles.time}>
 					<span>{minutes}</span>
@@ -161,7 +181,7 @@ console.log('это инит' ,initialInterval , 'первая странциц�
 						{isRunning ? 'PAUSE' : 'START'}
 					</button>
 					{isRunning && (
-						<img className={styles.next} src={next} alt='/' />
+						<img className={styles.next} src={next} onClick={messageToUser} alt='/' />
 					)}
 				</div>
 			</div>

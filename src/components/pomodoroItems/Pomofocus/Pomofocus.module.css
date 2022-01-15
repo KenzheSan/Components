@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Subrayada:wght@400;700&family=Montserrat:wght@100;200&display=swap');
 .pomofocus {
 	display: flex;
 	flex-direction: column;
@@ -13,32 +14,62 @@
 	color: #ffffff;
 	margin: 6px 0px;
 	text-align: center;
-    position: relative;
-    bottom: 25px;
-    left: 0;
+	position: relative;
+	bottom: 25px;
+	left: 0;
 }
 
-.btn {
-	width: 150px;
-	height: 60px;
-	background: #ffffff;
-	border-radius: 6px;
-	font-style: normal;
-	font-weight: bold;
-	font-size: 36px;
-	line-height: 44px;
-	text-transform: uppercase;
-	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
-.btn{
-    transition: all 10s;
-    color: #db524d;
-}
 .next {
 	width: 17.33px;
 	height: 21.33px;
 	position: relative;
 	left: 65px;
 	top: 0px;
-    cursor: pointer;
+	cursor: pointer;
+}
+
+.absolute {
+	position: absolute;
+	left: -20px;
+	right: 0;
+	top: -100px;
+	width: 40vw; /* Need a specific value to work */
+	margin: 0 auto;
+}
+
+.btn {
+	font-weight: bolder;
+	background: #ffffff;
+	border: 1px solid #ee817d;
+	border-radius: 6px;
+	line-height: 44px;
+	color: #db524d;
+	cursor: pointer;
+	font-size: 36px;
+	line-height: 20px;
+	font-style: normal;
+	outline: none;
+	position: relative;
+	text-align: center;
+	text-transform: uppercase;
+	touch-action: manipulation;
+	transition: box-shadow 0.2s, -ms-transform 0.1s, -webkit-transform 0.1s,
+		transform 0.1s;
+	user-select: none;
+	-webkit-user-select: none;
+	text-transform: uppercase;
+	width: 150px;
+	height: 60px;
+	box-shadow: 7px 6px 28px 1px rgba(0, 0, 0, 0.24);
+}
+
+.btn:focus-visible {
+	box-shadow: #222222 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px;
+	transition: box-shadow 0.2s;
+}
+
+.btn:active {
+	background-color: #f7f7f7;
+	border-color: #e05454;
+	transform: scale(0.96);
 }

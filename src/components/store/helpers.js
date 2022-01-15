@@ -5,17 +5,3 @@ export default formatingTime
 
 
 
-// const useCountDown = (minutes) => {
-
-
-
-
-
-
-
-//   return {
-//     start,
-//     stop,
-//     reset
-//   }
-// }

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+// import React, { Fragment } from 'react'
 import style from './NavBar.module.css'
 import NavList from './NavList'
 const NavBar = (props) => {
@@ -7,7 +7,7 @@ const NavBar = (props) => {
 			<div className={style.routes}>
 				<NavList />
 			</div>
-			<Fragment>{props.children}</Fragment>
+			<div className={style.navbarBox}>{props.children}</div>
 		</div>
 	)
 }

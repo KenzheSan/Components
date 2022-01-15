@@ -8,6 +8,8 @@ import {
 	CONFIRM,
 	AUTOSTARTBREAKS,
 	INTERVALISSTARTED,
+	ROUND,
+	RESETCONFIRM,
 } from '../../store/constants'
 import { Fragment } from 'react'
 import Progress from '../../UI/DisplayTime/DisplayTime'
@@ -28,7 +30,7 @@ const ShortBreak = () => {
 	const intervalIsStart = useSelector(
 		(state) => state.timeSettings[INTERVALISSTARTED],
 	)
-	
+
 	const autoStartPomodor = useSelector(
 		(state) => state.timeSettings[AUTOSTARTPOMODOR],
 	)
@@ -64,27 +66,24 @@ const ShortBreak = () => {
 			})
 		}, 100)
 	}, [])
-
 	useEffect(() => {
 		if (intervalIsStart) {
 			if (autoStartBreaks) {
-				if (initialInterval > 0) {
-					startTimer()
-				}
+				startTimer()
 			}
 		}
 	}, [autoStartBreaks, initialInterval, intervalIsStart, startTimer])
 
-	useEffect(() => {
-		const autoStartTime = () => {
-			if (initialInterval > 0) {
-				if (autoStartBreaks) {
-					startTimer()
-				}
-			}
-		}
-		autoStartTime()
-	}, [autoStartBreaks, initialInterval, startTimer])
+	// useEffect(() => {
+	// 	const autoStartTime = () => {
+	// 		if (initialInterval > 0) {
+	// 			if (autoStartBreaks) {
+	// 				startTimer()
+	// 			}
+	// 		}
+	// 	}
+	// 	autoStartTime()
+	// }, [autoStartBreaks, initialInterval, startTimer])
 
 	// done
 	useEffect(() => {
@@ -112,51 +111,77 @@ const ShortBreak = () => {
 		setProgress(0)
 	}, [shortBreakTime])
 	//done
+	// useEffect(() => {
+	// 	const nextLevel = async () => {
+	// 		if (timeLeft === 0) {
+	// 			if (autoStartPomodor) {
+	// 				if (initialInterval > 1) {
+	// 					disptach(setActions.minuseIntervalTime())
+	// 					disptach(setActions.intervalStarted())
+	// 					history.replace('/pomodoro')
+	// 					await setIsChecked(false)
+	// 				}else{
+	// 					// disptach(setActions.intervalStoped())
+	// 					history.replace('/LongBreak')
+	// 					await setIsChecked(false)
+	// 				}
+	// 			} else {
+	// 				history.replace('/LongBreak')
+	// 				console.log('herro');
+	// 			}
+	// 			await resetTimer()
+	// 		}
+	// 	}
+	// 	nextLevel()
+	// }, [
+	// 	autoStartPomodor,
+	// 	disptach,
+	// 	history,
+	// 	initialInterval,
+	// 	resetTimer,
+	// 	timeLeft,
+	// ])
+	const initialRound = useSelector((state) => state.timeSettings[ROUND])
+	console.log(initialRound, 'round + short')
+
 	useEffect(() => {
-		const nextLevel = async () => {
+		const newRound = async () => {
 			if (timeLeft === 0) {
-				if (autoStartPomodor) {
-					if (initialInterval > 1) {
-						disptach(setActions.minuseIntervalTime())
-						disptach(setActions.intervalStarted())
-						history.replace('/pomodoro')
-						await setIsChecked(false)
-					}else{
-						console.log(initialInterval);
-						disptach(setActions.intervalStoped())
-						history.replace('/LongBreak')
-						await setIsChecked(false)
-					}
-				} else {
-					history.replace('/LongBreak')
-					console.log('herro');
+				if (initialInterval > 0) {
+					// disptach(setActions.setRound())
+					history.replace('/pomodoro')
+					await setIsChecked(false)
 				}
-				await resetTimer()
 			}
 		}
-		nextLevel()
-	}, [
-		autoStartPomodor,
-		disptach,
-		history,
-		initialInterval,
-		resetTimer,
-		timeLeft,
-	])
+		newRound()
+	}, [disptach, history, initialInterval, timeLeft])
+
 	// done
 	useEffect(() => {
-		return () => {
-			clearInterval(intervalRef.current)
-			intervalRef.current = null
-			setTimeLeft(shortBreakTime * 60)
-			setIsRunning(false)
-		}
-	}, [shortBreakTime])
+		return () => resetTimer()
+	}, [resetTimer, shortBreakTime])
 
-
+	// const resetTimer = useCallback(() => {
+	// 	clearInterval(intervalRef.current)
+	// 	intervalRef.current = null
+	// 	setTimeLeft(shortBreakTime * 60)
+	// 	setIsRunning(false)
+	// 	setProgress(0)
+	// }, [shortBreakTime])
 
 	// const [start] = useSound(sound)
 	// const [play] = useSound(alarm)
+	const messageToUser = async() => {
+		if(window.confirm(CONFIRM)){	
+			await setIsChecked(false)
+			history.replace('/pomodoro')
+		}else{
+			return
+		}
+		
+	}
+
 
 	const switchBtn = () => {
 		// start()
@@ -164,8 +189,10 @@ const ShortBreak = () => {
 	}
 	return (
 		<Fragment>
-			<Prompt when={isChecked} message={CONFIRM} />
+			<Prompt when={isChecked} message={RESETCONFIRM} />
+			<div className={classes.absolute}>
 			<Progress percent={percentage} />
+			</div>
 			<div className={classes.shortbreak}>
 				<h1 className={classes.time}>
 					<span>{minutes}</span>
@@ -177,7 +204,7 @@ const ShortBreak = () => {
 						{isRunning ? 'PAUSE' : 'START'}
 					</button>
 					{isRunning && (
-						<img className={classes.next} src={next} alt='/' />
+						<img className={classes.next} src={next} onClick={messageToUser} alt='/' />
 					)}
 				</div>
 			</div>

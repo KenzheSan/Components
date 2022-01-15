@@ -1,39 +1,47 @@
 import styles from './FormControl.module.css'
 import line from '../../logo/line0.png'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {
 	AUTOSTARTBREAKS,
 	AUTOSTARTPOMODOR,
 	INTERVALOFTIMERS,
 } from '../../store/constants'
-import { forwardRef } from 'react'
+import { forwardRef ,useState} from 'react'
+import { setActions } from '../../store/settings'
 
 const FormControl = forwardRef((props, ref) => {
 	const value = useSelector((state) => state.timeSettings[AUTOSTARTPOMODOR])
 	const value2 = useSelector((state) => state.timeSettings[AUTOSTARTBREAKS])
+	const [pomo,setPomo] = useState(false)
+	const [short,setShort] = useState(false)
+	const disptach = useDispatch()
 	const intervalTime = useSelector(
 		(state) => state.timeSettings[INTERVALOFTIMERS],
 	)
-	
-	const onChangePomoHandler = (e) => {
-		props.onBoolingPomo(e.target.checked)
-	}
+	console.log(value2);
+	// const onChangePomoHandler = (e) => {
+	// 	props.onBoolingPomo(e.target.checked)
+	// }
 
-	const onChangeBreaksHandler = (e) => {
-		props.onBoolingBreaks(e.target.checked)
-	}
+	// const onChangeBreaksHandler = (e) => {
+	// 	props.onBoolingBreaks(e.target.checked)
+	// }
 
 
 	return (
 		<section className={styles.checkbox}>
 			<img className={styles.line} src={line} alt='/line' />
 			<div className={styles.break}>
-				<h1 className={styles.auto}>Auto start Breaks?</h1>
+				<label htmlFor='input' className={styles.auto}>Auto start Breaks?</label>
 				<input
+				name='input'
 					className={styles.radio}
 					type='checkbox'
-					onChange={onChangeBreaksHandler}
-					defaultValue={value2}
+					onChange={(e) =>disptach(setActions.autoStartBreaks(e.target.checked))
+					}
+					checked={value2}
+					value={short}
+					// checked={value2}
 				/>
 			</div>
 			<img className={styles.line} src={line} alt='/line' />
@@ -42,8 +50,8 @@ const FormControl = forwardRef((props, ref) => {
 				<input
 					className={`${styles.radio}`}
 					type='checkbox'
-					onChange={onChangePomoHandler}
-					defaultValue={value}
+					onChange={(e) => props.onBoolingPomo(e)}
+					// checked={value}
 				/>
 			</div>
 			<img className={styles.line} src={line} alt='/line' />

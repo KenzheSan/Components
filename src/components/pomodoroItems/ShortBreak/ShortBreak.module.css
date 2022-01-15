@@ -5,6 +5,14 @@
 	align-items: center;
 }
 
+.absolute{
+	position: absolute; 
+	left: -20px; 
+	right: 0;
+	top: -100px; 
+	width: 40vw; /* Need a specific value to work */
+	margin: 0 auto;
+}
 .time {
 	width: 348px;
 	height: 146px;
@@ -18,23 +26,46 @@
 	bottom: 25px;
 	left: 0;
 }
+
+
 .btn {
+	background: #ffffff;
+		border: 1px solid #4C8385; ;
+	border-radius: 6px;
+	line-height: 44px;
+	color: #4C8385; 
+			cursor: pointer;
+	font-size: 36px;
+	font-weight: bold;
+	line-height: 20px;
+	font-style: normal;
+	outline: none;
+	position: relative;
+	text-align: center;
+	text-transform: uppercase;
+	touch-action: manipulation;
+	transition: box-shadow 0.2s, -ms-transform 0.1s, -webkit-transform 0.1s,
+		transform 0.1s;
+	user-select: none;
+	-webkit-user-select: none;
+	text-transform: uppercase;
 	width: 150px;
 	height: 60px;
-	background: #ffffff;
-	border-radius: 6px;
-	font-style: normal;
-	font-weight: bold;
-	font-size: 36px;
-	line-height: 44px;
-	text-transform: uppercase;
-    color: #4C8385; 
-	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+	box-shadow: 7px 6px 28px 1px rgba(0, 0, 0, 0.24);
 }
-.btn{
-    color: #4C8385; 
-    transition: all 2s ease-in;
+
+.btn:focus-visible {
+	box-shadow: #222222 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px;
+	transition: box-shadow 0.2s;
 }
+
+.btn:active {
+	background-color: #f7f7f7;
+	border-color: #4C8385; ;
+	transform: scale(0.96);
+}
+
+
 .next {
 	width: 17.33px;
 	height: 21.33px;
@@ -43,3 +74,4 @@
 	top: 0px;
 	cursor: pointer;
 }
+
