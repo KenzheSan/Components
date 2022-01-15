@@ -3,11 +3,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Fragment } from 'react'
 import Progress from '../../UI/DisplayTime/DisplayTime'
 import styles from './LongBreak.module.css'
-import {  useEffect } from 'react'
+import { useEffect} from 'react'
 import {
 	LONG_BREAK,
-	INTERVALOFTIMERS,
-	INTERVALISSTARTED,
 	CONFIRM,
 	ROUND,
 	AUTOSTARTPOMODOR,
@@ -22,81 +20,92 @@ const LongBreak = () => {
 	const longBreakTime = useSelector(
 		(state) => state.timeSettings[LONG_BREAK].minutes,
 	)
-	const customTimer = CustomTimer(longBreakTime)
+	const {		isChecked,
+		setIsChecked,
+		startTimer,
+		minutes,
+		seconds,
+		stopTimer,
+		percentage,
+		timeLeft,
+		isRunning,} = CustomTimer(longBreakTime)
 
 	const disptach = useDispatch()
 
-	const initialInterval = useSelector(
-		(state) => state.timeSettings[INTERVALOFTIMERS],
+	const initialRound = useSelector((state) => state.timeSettings[ROUND])
+
+	const isAutoStartPomodor = useSelector(
+		(state) => state.timeSettings[AUTOSTARTPOMODOR],
 	)
-	const intervalIsStart = useSelector(
-		(state) => state.timeSettings[INTERVALISSTARTED],
+
+	const isAutoStartShortBreak = useSelector(
+		(state) => state.timeSettings[AUTOSTARTBREAKS],
 	)
-	const initialRound = useSelector((state)=> state.timeSettings[ROUND])
-	const isAutoStartPomodor = useSelector((state)=> state.timeSettings[AUTOSTARTPOMODOR])
-	const isAutoStartShortBreak = useSelector((state)=> state.timeSettings[AUTOSTARTBREAKS])
 
 	const history = useHistory()
-
 	useEffect(() => {
 		if (isAutoStartPomodor) {
 			if (isAutoStartShortBreak) {
-				customTimer.startTimer()
+				startTimer()
 			}
-			
 		}
-	}, [customTimer, isAutoStartPomodor, isAutoStartShortBreak])
-	
+	}, [isAutoStartPomodor, isAutoStartShortBreak, startTimer])
 
-	useEffect(()=> {
-		const newRound = async() => {
-			if(customTimer.timeLeft === 0){
-				if(initialRound > 1){
+	useEffect(() => {
+		const newRound = async () => {
+			if (timeLeft === 0) {
+				if (initialRound > 1) {
 					disptach(setActions.setInterval(initialRound))
 					disptach(setActions.clearRoundInterval())
 					history.replace('/pomodoro')
-					await customTimer.setIsChecked(false)
-				}else{
+					await setIsChecked(false)
+				} else {
 					history.replace('/pomodoro')
 					disptach(setActions.clearRoundInterval())
-					await customTimer.setIsChecked(false)
+					await setIsChecked(false)
 				}
 			}
 		}
 		newRound()
-	},[customTimer, disptach, history, initialRound])
+	}, [disptach, history, initialRound, setIsChecked, timeLeft])
 
-	const messageToUser = async() => {
-		if(window.confirm(CONFIRM)){
-			await customTimer.setIsChecked(false)
+	const messageToUser = async () => {
+		if (window.confirm(CONFIRM)) {
+			await setIsChecked(false)
 			history.replace('/pomodoro')
-		}else{
+		} else {
 			return
 		}
-		
 	}
 
 	const switchBtn = () => {
-		customTimer.isRunning ? customTimer.stopTimer() : customTimer.startTimer()
+		isRunning
+			? stopTimer()
+			: startTimer()
 	}
 	return (
 		<Fragment>
-			<Prompt when={customTimer.isChecked} message={RESETCONFIRM} />
+			<Prompt when={isChecked} message={RESETCONFIRM} />
 			<div className={styles.absolute}>
-			<Progress percent={customTimer.percentage} />
+				<Progress percent={percentage} />
 			</div>
 			<div className={styles.longbreak}>
 				<h1 className={styles.time}>
-					<span>{customTimer.minutes}</span>
+					<span>{minutes}</span>
 					<span>:</span>
-					<span>{customTimer.seconds}</span>
+					<span>{seconds}</span>
 				</h1>
 				<div>
 					<button className={`${styles.btn}`} onClick={switchBtn}>
-						{customTimer.isRunning ? 'PAUSE' : 'START'}
+						{isRunning ? 'PAUSE' : 'START'}
 					</button>
-					{customTimer.isRunning && (
-						<img className={styles.next} src={next} onClick={messageToUser} alt='/' />
+					{isRunning && (
+						<img
+							className={styles.next}
+							src={next}
+							onClick={messageToUser}
+							alt='/'
+						/>
 					)}
 				</div>
 			</div>

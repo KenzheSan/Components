@@ -5,8 +5,8 @@ function CustomTimer(time) {
     const [isChecked, setIsChecked] = useState(false)
 	const [timeLeft, setTimeLeft] = useState(time * 60)
 	const [isRunning, setIsRunning] = useState(false)
-    
 	const [progress, setProgress] = useState(0)
+
 	const percentage = (progress / (time * 60)) * 100
 
 	const minutes = formatingTime(Math.floor(timeLeft / 60))
