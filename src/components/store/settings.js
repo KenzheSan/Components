@@ -32,7 +32,7 @@ const settings = createSlice({
         },
         clearRoundInterval(state){
             state[ROUND] = 0
-        },
+        },  
 
         setPreferences(state){
             state[INTERVALOFTIMERS] = state[INTERVALOFTIMERS] - 1
