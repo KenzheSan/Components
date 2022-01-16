@@ -43,6 +43,7 @@ const FormLayout = () => {
 							type='number'
 							defaultValue={pomodoro}
 							ref={pomodoreRef}
+							min={0}
 						/>
 					</div>
 					<div>
@@ -52,6 +53,7 @@ const FormLayout = () => {
 							type='number'
 							defaultValue={short_break}
 							ref={shortBreakRef}
+							min={0}
 						/>
 					</div>
 					<div>

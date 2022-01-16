@@ -1,8 +1,8 @@
-import { useState,useRef,useCallback,useEffect } from "react"
-import formatingTime from "./helpers"
+import { useState, useRef, useCallback, useEffect } from 'react'
+import formatingTime from './helpers'
 function CustomTimer(time) {
-    const intervalRef = useRef(null)
-    const [isChecked, setIsChecked] = useState(false)
+	const intervalRef = useRef(null)
+	const [isChecked, setIsChecked] = useState(false)
 	const [timeLeft, setTimeLeft] = useState(time * 60)
 	const [isRunning, setIsRunning] = useState(false)
 	const [progress, setProgress] = useState(0)
@@ -12,7 +12,6 @@ function CustomTimer(time) {
 	const minutes = formatingTime(Math.floor(timeLeft / 60))
 	const seconds = formatingTime(timeLeft - minutes * 60)
 
-    
 	const startTimer = useCallback(() => {
 		if (intervalRef.current !== null) return
 		setIsRunning(true)
@@ -22,52 +21,51 @@ function CustomTimer(time) {
 			setTimeLeft((timeLeft) => {
 				if (timeLeft > 0) return timeLeft - 1
 			})
-		}, 100)
+		}, 1000)
 	}, [])
 
-    const stopTimer = () => {
+	const stopTimer = useCallback(() => {
 		if (intervalRef.current === null) return
 		setIsRunning(false)
 		clearInterval(intervalRef.current)
 		intervalRef.current = null
-	}
+	},[])
 
-    useEffect(() => {
+	useEffect(() => {
 		setTimeLeft(time * 60)
 	}, [time])
-    
-    useEffect(() => {
-		if(timeLeft - 1 === 0) {
+
+	useEffect(() => {
+		if (timeLeft - 1 === 0) {
 			stopTimer()
 			setProgress(0)
 			setTimeLeft(0)
 			setIsChecked(false)
 		}
-	}, [timeLeft])
+	}, [stopTimer, timeLeft])
 
-    const resetTimer = useCallback(() => {
+	const resetTimer = useCallback(() => {
 		clearInterval(intervalRef.current)
 		intervalRef.current = null
 		setTimeLeft(time * 60)
 		setIsRunning(false)
 		setProgress(0)
-	},[time])
+	}, [time])
 
-    useEffect(() => {
+	useEffect(() => {
 		return () => resetTimer()
 	}, [time, resetTimer])
 
-    return {
-        startTimer,
-        minutes,
-        seconds,
-        stopTimer,
-        isChecked,
-        percentage,
-        timeLeft,
-        setIsChecked,
-        isRunning,
-    }
-    
+	return {
+		startTimer,
+		minutes,
+		seconds,
+		stopTimer,
+		isChecked,
+		percentage,
+		timeLeft,
+		setIsChecked,
+		isRunning,
+	}
 }
 export default CustomTimer

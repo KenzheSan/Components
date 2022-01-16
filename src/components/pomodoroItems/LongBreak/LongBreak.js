@@ -32,7 +32,6 @@ const LongBreak = () => {
 	const isInterValIsStarted = useSelector(
 		(state) => state.timeSettings[INTERVALISSTARTED],
 	)
-
 	const history = useHistory()
 
 	const {
@@ -75,7 +74,7 @@ const LongBreak = () => {
 		}
 		newRound()
 	}, [disptach, history, initialRound, setIsChecked, timeLeft])
-	console.log(initialRound);
+	
 	const messageToUser = async () => {
 		if (window.confirm(CONFIRM)) {
 			await setIsChecked(false)

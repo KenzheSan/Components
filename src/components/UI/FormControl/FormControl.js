@@ -51,6 +51,8 @@ const FormControl = forwardRef((props, ref) => {
 					type='number'
 					ref={ref}
 					defaultValue={intervalOfTimers}
+					max={20}
+					min={1}
 				/>
 			</div>
 			<img className={styles.line} src={line} alt='/line' />
